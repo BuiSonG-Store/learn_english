@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1864"
+    height="4040" viewBox="0 0 1864 4040">
+    <defs>
+        <radialGradient id="a" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#1a62f2" />
+            <stop offset="1" stop-color="#1080d5" />
+        </radialGradient>
+    </defs>
+    <g transform="translate(1864.422) rotate(90)">
+        <rect width="4040" height="1864" transform="translate(0 0.422)" fill="#ebefff" />
+    </g>
+    <g transform="translate(1861.331) rotate(90)" opacity="0.05" style="isolation:isolate">
+        <path d="M465.239,935.814H315.37L0,0Z" transform="translate(2040.959 923.917)"
+            fill="url(#a)" />
+        <path d="M1600.153,935.814H1319.817L0,0Z" transform="translate(2167.921 923.917)"
+            fill="url(#a)" />
+        <path d="M934.816,935.814H748.227L0,0Z" transform="translate(2069.21 923.917)"
+            fill="url(#a)" />
+        <path d="M1600.433,0,280.367,935.814H0Z" transform="translate(271.538 923.917)"
+            fill="url(#a)" />
+        <path d="M935.034,0,186.589,935.814H0Z" transform="translate(1035.665 923.917)"
+            fill="url(#a)" />
+        <path d="M1871.659,261.555v124.32L0,0Z" transform="translate(2167.921 928.389)"
+            fill="url(#a)" />
+        <path d="M1871.659,620.6V775.337L0,0Z" transform="translate(2167.921 923.917)"
+            fill="url(#a)" />
+        <path d="M1871.659,0V124.288L0,386Z" transform="translate(2167.921 545.529)"
+            fill="url(#a)" />
+        <path d="M1871.659,0V154.768L0,775.493Z" transform="translate(2167.921 160.508)"
+            fill="url(#a)" />
+        <path d="M1871.971,0,0,775.337V620.6Z" transform="translate(0 923.917)" fill="url(#a)" />
+        <path d="M1871.659,0V116.021L0,58.088Z" transform="translate(2167.921 871.87)"
+            fill="url(#a)" />
+        <path d="M465.427,0,149.87,935.814H0Z" transform="translate(1533.524 923.917)"
+            fill="url(#a)" />
+        <path d="M139.949,0,70.069,936,0,0Z" transform="translate(1949.883)" fill="url(#a)" />
+        <path d="M465.271,0,0,936,315.432,0Z" transform="translate(2040.961)" fill="url(#a)" />
+        <path d="M1600.183,0,0,936,1319.847,0Z" transform="translate(2167.921)" fill="url(#a)" />
+        <path d="M934.878,0,0,936,748.288,0Z" transform="translate(2069.215)" fill="url(#a)" />
+        <path d="M935.1,936,0,0H186.62Z" transform="translate(1035.598)" fill="url(#a)" />
+        <path d="M1871.971,58.088,0,116.021V0Z" transform="translate(0 871.87)" fill="url(#a)" />
+        <path d="M1600.464,936,0,0H280.4Z" transform="translate(271.507)" fill="url(#a)" />
+        <path d="M1871.971,386.031,0,124.289V0Z" transform="translate(0 545.497)" fill="url(#a)" />
+        <path d="M1871.971,0,0,385.875V261.618Z" transform="translate(0 928.389)" fill="url(#a)" />
+        <path d="M1871.971,775.524,0,154.8V0Z" transform="translate(0 160.477)" fill="url(#a)" />
+        <path d="M465.489,936,0,0H149.87Z" transform="translate(1533.459)" fill="url(#a)" />
+        <path d="M139.887,935.814H0L70.036,0Z" transform="translate(1949.914 923.917)"
+            fill="url(#a)" />
+    </g>
+</svg>
