@@ -24,7 +24,7 @@ class HomeProvider extends ChangeNotifier {
       "course/search",
       body: {
         "filters": [
-          {"key": "title", "operator": "LIKE", "field_type": "STRING", "value": "$contentSearch"}
+          {"key": "title", "operator": "LIKE", "field_type": "STRING", "value": contentSearch}
         ],
         "sorts": [],
         "page": 0,

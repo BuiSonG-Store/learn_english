@@ -23,7 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<HomeProvider>(context).getDataHome();
+    if(isFirst){
+      Provider.of<HomeProvider>(context).getDataHome();
+      isFirst = false;
+    }
     return Consumer<HomeProvider>(builder: (context, provider, widget) {
       return Scaffold(
         body: SingleChildScrollView(

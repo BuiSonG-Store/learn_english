@@ -8,8 +8,9 @@ class ExerciseProvider extends ChangeNotifier {
   ExerciseModel? exerciseModel;
   Questions? questions;
   Answers? answers;
+
   Future<void> getData(String? id) async {
-    var data = await appClient.get("/course/$id/exercise", token: true);
+    var data = await appClient.get("exercise/$id", token: true);
     exerciseModel = ExerciseModel.fromJson(data);
     notifyListeners();
   }

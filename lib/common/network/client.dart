@@ -88,7 +88,7 @@ class AppClient {
       }
       LoginModel loginModel;
       var url = Uri.parse(
-        '${Configurations.host}token.dart/refresh_token',
+        '${Configurations.host}token/refresh_token',
       );
       response = await http.post(url,
           headers: {
@@ -101,5 +101,7 @@ class AppClient {
       await injector<LocalApp>().saveStringStorage(StringConst.keySaveReFreshToken, loginModel.refreshToken ?? '');
       return loginModel.accessToken;
     } catch (_) {}
+
+
   }
 }
