@@ -7,7 +7,6 @@ class CommonImage {
   static String backGroundHome = '${srcBackground}background_home.png';
 
   ///icons
-  static String logoTimeBird = '${srcIcons}ic_logo_timebird.png';
   static String next = '${srcIcons}next.svg';
   static String back = '${srcIcons}back.svg';
   static String icSlideParty = '${srcIcons}ic_slide_party.png';

@@ -3,8 +3,7 @@ import 'package:learn_english/model/rank_model.dart';
 
 class ItemRank extends StatelessWidget {
   final Top10User? model;
-  final int top;
-  const ItemRank({Key? key, this.model, required this.top}) : super(key: key);
+  const ItemRank({Key? key, this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class ItemRank extends StatelessWidget {
       ),
       child: Row(
         children: [
-          imageTop(top, context),
+          imageTop(model?.rank ?? 0, context),
           const SizedBox(width: 12),
           Text(
             model?.name ?? '',

@@ -12,8 +12,6 @@ import 'package:learn_english/router/navigate_service.dart';
 import 'package:learn_english/router/router.dart';
 import 'package:learn_english/router/routing-name.dart';
 import 'package:learn_english/injector/injector_container.dart' as di;
-import 'package:learn_english/view/play_game/features/2048/provider/matrix_provider.dart';
-import 'package:learn_english/view/play_game/features/2048/provider/score_provider.dart';
 import 'package:learn_english/view/play_game/features/slide_party/bootstraps.dart';
 import 'package:learn_english/view/play_game/plugin/locator.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
@@ -22,6 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
@@ -32,8 +31,6 @@ void main() async {
   SharedPreferences.getInstance().then((prefs) {
     isDarkTheme = prefs.getBool("darkTheme") ?? false;
   });
-  setupLocator();
-  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
@@ -43,21 +40,18 @@ void main() async {
     bootstraps(
       MultiProvider(
         providers: [
-ChangeNotifierProvider(create: (context) => CreateAccountProvider()),
-ChangeNotifierProvider(create: (context) => ThemeProvider(isDarkTheme)),
-ChangeNotifierProvider(create: (context) => LogInProvider()),
-ChangeNotifierProvider(create: (context) => HomeProvider()),
-ChangeNotifierProvider(create: (context) => RankProvider()),
-ChangeNotifierProvider(create: (context) => ExerciseProvider()),
-ChangeNotifierProvider(create: (context) => ThemeProviderGame()),
-ChangeNotifierProvider(create: (context) => MatrixProvider()),
-ChangeNotifierProvider(create: (context) => ScoreProvider()),
+          ChangeNotifierProvider(create: (context) => CreateAccountProvider()),
+          ChangeNotifierProvider(create: (context) => ThemeProvider(isDarkTheme)),
+          ChangeNotifierProvider(create: (context) => LogInProvider()),
+          ChangeNotifierProvider(create: (context) => HomeProvider()),
+          ChangeNotifierProvider(create: (context) => RankProvider()),
+          ChangeNotifierProvider(create: (context) => ExerciseProvider()),
+          ChangeNotifierProvider(create: (context) => ThemeProviderGame()),
         ],
         child: const MyApp(),
       ),
     );
   });
-
 }
 
 Future initInjector() async {

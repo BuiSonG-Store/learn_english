@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/features/slide_party/widgets/background_item.dart';
 import 'package:learn_english/view/play_game/features/slide_party/widgets/dialogs/slideparty_snack_bar.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
 import 'package:provider/provider.dart';
+import '../../../../../../../../../router/routing-name.dart';
 import '../../../controllers/multiple_mode_controller.dart';
 
 class BottomControlSetting extends StatelessWidget {
@@ -34,7 +34,7 @@ class BottomControlSetting extends StatelessWidget {
           InkWell(
             onTap: () {
               _playSound();
-              Navigator.of(context).pushNamed(RoutingNameGame.homePageSlideParty);
+              Navigator.of(context).pushNamed(RoutingNameConstant.homePageSlideParty);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';

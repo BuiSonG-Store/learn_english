@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learn_english/router/routing-name.dart';
 import 'package:learn_english/view/play_game/features/choose_game/choose_game.dart';
 import 'package:learn_english/view/screens/chat/chat_detail/chat_detail_screen.dart';
@@ -11,6 +12,13 @@ import 'package:learn_english/view/screens/container_screen.dart';
 import 'package:learn_english/view/screens/introl_screen/intro_screen.dart';
 import 'package:learn_english/view/screens/login/let_you_login.dart';
 import 'package:learn_english/view/screens/splash/splash_screen.dart';
+import '../view/play_game/features/choose_game/start_choose_game.dart';
+import '../view/play_game/features/slide_party/features/home/screens/home_page.dart';
+import '../view/play_game/features/slide_party/features/multiple_mode/controllers/multiple_mode_controller.dart';
+import '../view/play_game/features/slide_party/features/multiple_mode/screens/multiple_mode_page.dart';
+import '../view/play_game/features/slide_party/features/playboard/controllers/playboard_controller.dart';
+import '../view/play_game/features/slide_party/features/single_mode/controllers/single_mode_controller.dart';
+import '../view/play_game/features/slide_party/features/single_mode/screens/single_mode_page.dart';
 
 abstract class RoutesConstant {
   static final routes = <String, WidgetBuilder>{
@@ -25,5 +33,14 @@ abstract class RoutesConstant {
     RoutingNameConstant.chatDetailScreen: (BuildContext context) => const ChatDetailScreen(),
     RoutingNameConstant.chatScreen: (BuildContext context) => const ChatScreen(),
     RoutingNameConstant.chooseGame: (BuildContext context) => const ChooseGame(),
+    RoutingNameConstant.startChooseGame: (BuildContext context) => const StartChooseGame(),
+    RoutingNameConstant.homePageSlideParty: (BuildContext context) => const HomePageSlideParty(),
+    RoutingNameConstant.mMode: (BuildContext context) => ProviderScope(
+        overrides: [playboardControllerProvider.overrideWithProvider(multipleModeControllerProvider)],
+        child: const MultipleModePage()),
+    RoutingNameConstant.sMode: (BuildContext context) => ProviderScope(
+          overrides: [playboardControllerProvider.overrideWithProvider(singleModeControllerProvider)],
+          child: const SingleModePage(),
+        ),
   };
 }

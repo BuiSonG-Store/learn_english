@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/features/shared_preference_service.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
 import 'package:learn_english/view/play_game/widgets/background_item.dart';
 import 'package:provider/provider.dart';
 import 'package:showcaseview/showcaseview.dart';
+
+import '../../../../../../../../router/routing-name.dart';
 
 class BottomBarSetting extends StatelessWidget {
   final GlobalKey keyThree;
@@ -30,7 +31,7 @@ class BottomBarSetting extends StatelessWidget {
           InkWell(
             onTap: () {
               _playSound();
-              Navigator.of(context).pushReplacementNamed(RoutingNameGame.homePageSlideParty);
+              Navigator.of(context).pushReplacementNamed(RoutingNameConstant.homePageSlideParty);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),

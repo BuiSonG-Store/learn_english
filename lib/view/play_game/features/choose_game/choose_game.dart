@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:learn_english/common/constants/icons_const.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/features/choose_game/widget/control_bar_choose.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
 import 'package:provider/provider.dart';
+import '../../../../router/routing-name.dart';
 import '../../commons/common_image.dart';
 import '../../widgets/background_item.dart';
 
@@ -26,9 +28,9 @@ class _ChooseGameState extends State<ChooseGame> {
 
   void onPlay() async {
     if (pageIndex == 0) {
-      Navigator.of(context).pushNamed(RoutingNameGame.splashSlideParty);
+      Navigator.of(context).pushNamed(RoutingNameConstant.homePageSlideParty);
     } else if (pageIndex == 1) {
-      Navigator.of(context).pushNamed(RoutingNameGame.splash2048);
+      Navigator.of(context).pushNamed(RoutingNameConstant.splash2048);
     }
   }
 
@@ -41,10 +43,10 @@ class _ChooseGameState extends State<ChooseGame> {
         CommonImage.icSlideParty,
         width: width,
       ),
-      Image.asset(
-        CommonImage.ic2048,
-        width: width,
-      ),
+      // Image.asset(
+      //   CommonImage.ic2048,
+      //   width: width,
+      // ),
     ];
 
     return Scaffold(
@@ -68,10 +70,6 @@ class _ChooseGameState extends State<ChooseGame> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    CommonImage.logoTimeBird,
-                    width: width * 0.2,
-                  ),
                   Expanded(
                     flex: 5,
                     child: PageView.builder(
@@ -89,7 +87,7 @@ class _ChooseGameState extends State<ChooseGame> {
                     ),
                   ),
                   const Spacer(),
-                  ControlBarChoose(controller: _controller),
+                  // ControlBarChoose(controller: _controller),
                   const SizedBox(height: 40),
                   InkWell(
                     onTap: () {
@@ -114,6 +112,21 @@ class _ChooseGameState extends State<ChooseGame> {
               ),
             ),
           ),
+          Positioned(
+            top: 20,
+            left: 20,
+            child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, RoutingNameConstant.homeContainer);
+                },
+                child: Container(
+                    height: 50,
+                    width: 50,
+                    padding: const EdgeInsets.all(12),
+                    decoration:
+                        BoxDecoration(color: Colors.white.withOpacity(0.3), borderRadius: BorderRadius.circular(50)),
+                    child: SvgPicture.asset('assets/icons/home.svg'))),
+          )
         ],
       ),
     );

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:learn_english/view/play_game/features/2048/model/individual_cell.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/theme.dart';
@@ -30,27 +29,13 @@ class SharedPreferenceService {
     prefs.setInt("cur_score", curScore);
   }
 
-  static Future<void> saveMatrix(List<List<IndividualCell>> matrix) async {
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setString("matrix", jsonEncode(matrix));
-  }
+
 
   static Future<void> clearMatrix() async {
     var prefs = await SharedPreferences.getInstance();
     prefs.remove("matrix");
   }
 
-  static Future<List<List<IndividualCell>>> getMatrix() async {
-    var prefs = await SharedPreferences.getInstance();
-    final List jsonData = jsonDecode(prefs.getString('matrix') ?? '[]');
-    var result = jsonData.map<List<IndividualCell>>((jsonList) {
-      return jsonList.map<IndividualCell>((jsonItem) {
-        return IndividualCell.fromJson(jsonItem);
-      }).toList();
-    }).toList();
-
-    return result;
-  }
 
   static Future<void> setHighScore(List<int> list) async {
     var prefs = await SharedPreferences.getInstance();

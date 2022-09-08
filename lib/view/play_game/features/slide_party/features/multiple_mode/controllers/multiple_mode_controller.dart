@@ -12,8 +12,9 @@ import 'package:learn_english/view/play_game/features/slide_party/features/playb
 import 'package:learn_english/view/play_game/features/slide_party/features/playboard/playboard.dart';
 import 'package:learn_english/view/play_game/features/slide_party/features/playboard/widgets/skill_keyboard.dart';
 import 'package:learn_english/view/play_game/features/slide_party/widgets/buttons/models/slideparty_button_params.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
 import 'package:slideparty_socket/slideparty_socket_fe.dart';
+
+import '../../../../../../../router/routing-name.dart';
 
 final multipleModeControllerProvider =
     StateNotifierProvider.autoDispose<PlayboardController, PlayboardState>((ref) => MultipleModeController(ref.read));
@@ -55,7 +56,7 @@ class MultipleModeController extends PlayboardController<MultiplePlayboardState>
   }
 
   void goHome(BuildContext context) {
-    Navigator.of(context).pushNamed(RoutingNameGame.homePageSlideParty);
+    Navigator.of(context).pushNamed(RoutingNameConstant.homePageSlideParty);
   }
 
   void startGame(int player, int boardSize) {

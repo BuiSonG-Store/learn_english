@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/features/shared_preference_service.dart';
 import 'package:learn_english/view/play_game/features/slide_party/features/single_mode/single_mode_setting/single_mode_setting.dart';
 import 'package:learn_english/view/play_game/features/slide_party/features/single_mode/widgets/widgets.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
 import 'package:provider/provider.dart';
 import 'package:showcaseview/showcaseview.dart';
 
+import '../../../../../../../router/routing-name.dart';
 import '../../playboard/widgets/playboard_view.dart';
 import '../controllers/single_mode_controller.dart';
 
@@ -115,7 +115,7 @@ class _BodySingleModeState extends State<BodySingleMode> {
                 if (sound) {
                   SoundController.playClickSoundSlideParty();
                 }
-                Navigator.of(context).pushReplacementNamed(RoutingNameGame.homePageSlideParty);
+                Navigator.of(context).pushReplacementNamed(RoutingNameConstant.homePageSlideParty);
               },
             ),
             const SizedBox(height: 30),
