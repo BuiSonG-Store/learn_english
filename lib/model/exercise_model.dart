@@ -20,11 +20,11 @@ class ExerciseModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    if (this.questions != null) {
-      data['questions'] = this.questions!.map((v) => v.toJson()).toList();
+    data['id'] = id;
+    data['name'] = name;
+    data['description'] = description;
+    if (questions != null) {
+      data['questions'] = questions!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -49,11 +49,11 @@ class Questions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['question'] = this.question;
-    data['exercise_id'] = this.exerciseId;
-    if (this.answers != null) {
-      data['answers'] = this.answers!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['question'] = question;
+    data['exercise_id'] = exerciseId;
+    if (answers != null) {
+      data['answers'] = answers!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -64,10 +64,12 @@ class Answers {
   String? answerValue;
   bool? correctAnswer;
   int? questionId;
+  bool? isSelected;
 
-  Answers({this.answerKey, this.answerValue, this.correctAnswer, this.questionId});
+  Answers({this.answerKey, this.answerValue, this.correctAnswer, this.questionId, this.isSelected = false});
 
   Answers.fromJson(Map<String, dynamic> json) {
+    isSelected = false;
     answerKey = json['answer_key'];
     answerValue = json['answer_value'];
     correctAnswer = json['correct_answer'];
@@ -75,11 +77,11 @@ class Answers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['answer_key'] = this.answerKey;
-    data['answer_value'] = this.answerValue;
-    data['correct_answer'] = this.correctAnswer;
-    data['question_id'] = this.questionId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['answer_key'] = answerKey;
+    data['answer_value'] = answerValue;
+    data['correct_answer'] = correctAnswer;
+    data['question_id'] = questionId;
     return data;
   }
 }
