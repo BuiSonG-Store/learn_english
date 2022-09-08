@@ -3,7 +3,7 @@ import 'package:learn_english/view/play_game/features/slide_party/widgets/button
 import 'package:learn_english/view/play_game/features/slide_party/widgets/buttons/slideparty_button.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../../2048/helpers/sound_controller.dart';
+import '../../../../../config/sound_controller.dart';
 
 class NumberTile extends StatelessWidget {
   const NumberTile({

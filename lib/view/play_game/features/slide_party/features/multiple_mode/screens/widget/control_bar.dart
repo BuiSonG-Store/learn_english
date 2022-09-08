@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/features/slide_party/features/multiple_mode/controllers/multiple_mode_controller.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:provider/provider.dart';

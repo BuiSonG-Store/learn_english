@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
-import 'package:learn_english/view/play_game/features/2048/provider/matrix_provider.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/features/shared_preference_service.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
+import '../../../../router/routing-name.dart';
 import '../../commons/common_image.dart';
 import '../../widgets/background_item.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,6 @@ class _StartChooseGameState extends State<StartChooseGame> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       SoundController.initSound();
-      MatrixProvider.of(context).initializeGrid();
       bool sound = await SharedPreferenceService.getSound();
       Provider.of<ThemeProviderGame>(context, listen: false).setSound(sound);
     });
@@ -49,17 +47,13 @@ class _StartChooseGameState extends State<StartChooseGame> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 20),
-                  Image.asset(
-                    CommonImage.logoTimeBird,
-                    width: width * 0.2,
-                  ),
                   const Spacer(),
                   GestureDetector(
                     onTap: () {
                       if (sound) {
                         SoundController.playClickSoundSlideParty();
                       }
-                      Navigator.of(context).pushReplacementNamed(RoutingNameGame.chooseGame);
+                      Navigator.of(context).pushReplacementNamed(RoutingNameConstant.chooseGame);
                     },
                     child: BackgroundItem(
                         widget: Text(

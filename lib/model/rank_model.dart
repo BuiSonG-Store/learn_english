@@ -29,18 +29,21 @@ class RankModel {
 class Top10User {
   String? name;
   double? score;
+  int? rank;
 
-  Top10User({this.name, this.score});
+  Top10User({this.name, this.score, this.rank});
 
   Top10User.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     score = json['score'];
+    rank = json['rank'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['score'] = score;
+    data['rank'] = rank;
     return data;
   }
 }

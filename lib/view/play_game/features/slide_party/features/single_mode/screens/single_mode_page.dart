@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:learn_english/view/play_game/features/slide_party/features/single_mode/widgets/swipe_detector_widget.dart';
 import 'package:learn_english/view/play_game/features/slide_party/utils/app_infos/app_infos.dart';
 import 'package:showcaseview/showcaseview.dart';
-import '../../../../../router/routing_name.dart';
+import '../../../../../../../router/routing-name.dart';
 import '../../../widgets/dialogs/slideparty_dialog.dart';
 import '../../playboard/controllers/playboard_controller.dart';
 import '../controllers/single_mode_controller.dart';
@@ -178,7 +178,7 @@ class _SingleModePageState extends State<SingleModePage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushReplacementNamed(RoutingNameGame.homePageSlideParty);
+                        Navigator.of(context).pushReplacementNamed(RoutingNameConstant.homePageSlideParty);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(6),

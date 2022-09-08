@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:learn_english/router/routing-name.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/features/shared_preference_service.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
 import 'package:provider/provider.dart';
 import 'package:showcaseview/showcaseview.dart';
 import '../../../../../widgets/background_item.dart';
@@ -89,7 +89,7 @@ class _BodyHomeState extends State<BodyHome> {
                 description: "Let's play",
                 disposeOnTap: true,
                 onTargetClick: () {
-                  Navigator.of(context).pushNamed(RoutingNameGame.sMode);
+                  Navigator.of(context).pushNamed(RoutingNameConstant.sMode);
                 },
                 child: Showcase(
                   key: _keyOne,
@@ -97,7 +97,7 @@ class _BodyHomeState extends State<BodyHome> {
                   child: InkWell(
                     onTap: () {
                       _clickSound();
-                      Navigator.of(context).pushNamed(RoutingNameGame.sMode);
+                      Navigator.of(context).pushNamed(RoutingNameConstant.sMode);
                     },
                     child: BackgroundItem(
                       width: MediaQuery.of(context).size.width * 0.8,
@@ -120,7 +120,7 @@ class _BodyHomeState extends State<BodyHome> {
                 child: InkWell(
                   onTap: () {
                     _clickSound();
-                    Navigator.of(context).pushNamed(RoutingNameGame.mMode);
+                    Navigator.of(context).pushNamed(RoutingNameConstant.mMode);
                   },
                   child: BackgroundItem(
                     width: MediaQuery.of(context).size.width * 0.8,

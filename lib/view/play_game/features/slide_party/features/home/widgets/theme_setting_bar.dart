@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/play_game/router/routing_name.dart';
 import 'package:provider/provider.dart';
 import 'package:showcaseview/showcaseview.dart';
-import '../../../../2048/helpers/sound_controller.dart';
+import '../../../../../../../router/routing-name.dart';
+import '../../../../../config/sound_controller.dart';
 import '../../../widgets/background_item.dart';
 
 class ThemeSettingBar extends StatelessWidget {
@@ -37,7 +37,7 @@ class ThemeSettingBar extends StatelessWidget {
               IconButton(
                 onPressed: () {
                   _playSound();
-                  Navigator.of(context).pushNamed(RoutingNameGame.chooseGame);
+                  Navigator.of(context).pushNamed(RoutingNameConstant.chooseGame);
                 },
                 icon: Image.asset(
                   'assets/icons/game_home.png',
@@ -64,21 +64,6 @@ class ThemeSettingBar extends StatelessWidget {
                       child: SvgPicture.asset('assets/icons/volume.svg',
                           height: 20, color: theme.isSoundOn ? const Color(0xff25ADE6) : const Color(0xff707070)),
                     ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 49,
-                width: 49,
-                child: IconButton(
-                  onPressed: () {
-                    _playSound();
-                    Navigator.of(context).pushNamed(RoutingNameGame.aboutUsSlideParty);
-                  },
-                  icon: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 3000),
-                    transitionBuilder: (child, animation) => FadeTransition(opacity: animation, child: child),
-                    child: SvgPicture.asset('assets/icons/nav.svg', height: 20, color: const Color(0xff25ADE6)),
                   ),
                 ),
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../../provider/theme_provider.dart';
-import '../../../../../../2048/helpers/sound_controller.dart';
+import '../../../../../../../config/sound_controller.dart';
 
 class SelectLayoutMulti extends StatelessWidget {
   final ValueNotifier boardChosen;

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learn_english/view/play_game/features/2048/helpers/sound_controller.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/theme_provider.dart';

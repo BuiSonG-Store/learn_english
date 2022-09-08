@@ -3,7 +3,7 @@ import 'package:learn_english/view/play_game/features/slide_party/features/playb
 import 'package:provider/provider.dart';
 
 import '../../../../../provider/theme_provider.dart';
-import '../../../../2048/helpers/sound_controller.dart';
+import '../../../../../config/sound_controller.dart';
 import '../../../widgets/swipe_detector.dart';
 
 class SwipeDetectorWidget extends StatelessWidget {

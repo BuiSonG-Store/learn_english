@@ -34,7 +34,6 @@ class _RankScreenState extends State<RankScreen> {
                   itemBuilder: (context, index) {
                     return ItemRank(
                       model: provider.rankModel?.top10User?[index],
-                      top: index + 1,
                     );
                   },
                 ),
@@ -63,7 +62,6 @@ class _RankScreenState extends State<RankScreen> {
                 ),
                 ItemRank(
                   model: provider.rankModel?.currentUserScore,
-                  top: 000,
                 )
               ],
             ),
