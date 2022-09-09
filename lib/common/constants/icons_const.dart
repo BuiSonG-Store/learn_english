@@ -12,4 +12,6 @@ class IconConst {
   static const String close = '${_path}close.png';
   static const String mailbox = '${_path}mailbox.png';
   static const String play = '${_path}play.png';
+  static const String volume = '${_path}volume.png';
+  static const String unVolume = '${_path}volume-mute.png';
 }

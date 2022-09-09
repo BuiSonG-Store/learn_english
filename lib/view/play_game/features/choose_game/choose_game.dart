@@ -117,6 +117,8 @@ class _ChooseGameState extends State<ChooseGame> {
             left: 20,
             child: GestureDetector(
                 onTap: () {
+                  SoundController.playClickSoundSlideParty();
+
                   Navigator.pushReplacementNamed(context, RoutingNameConstant.homeContainer);
                 },
                 child: Container(

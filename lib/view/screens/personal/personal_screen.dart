@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learn_english/common/constants/icons_const.dart';
 import 'package:learn_english/common/constants/string_const.dart';
 import 'package:learn_english/provider/log_in_provider.dart';
+import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:learn_english/view/screens/personal/widgets/item_personal.dart';
 import 'package:learn_english/view/screens/personal/widgets/top_personal.dart';
 import 'package:learn_english/view/widgets/custom_appbar.dart';
@@ -20,6 +21,8 @@ class PersonalScreen extends StatelessWidget {
     String? userName = injector<LocalApp>().getStringStorage(StringConst.userName);
     String? email = injector<LocalApp>().getStringStorage(StringConst.email);
     String? avt = injector<LocalApp>().getStringStorage(StringConst.avt);
+    var theme = Provider.of<ThemeProviderGame>(context);
+
     void sendMailbox() {
       showDialog(
         context: context,
@@ -91,6 +94,13 @@ class PersonalScreen extends StatelessWidget {
                       title: 'Tắt/mở chế độ tối',
                       onTap: () {
                         Provider.of<ThemeProvider>(context, listen: false).swapTheme();
+                      },
+                    ),
+                    ItemPersonal(
+                      icon: theme.isSoundOn ? IconConst.volume : IconConst.unVolume,
+                      title: theme.isSoundOn ? 'Tắt âm thanh' : 'Mở âm thanh',
+                      onTap: () {
+                        theme.changeSound();
                       },
                     ),
                     ItemPersonal(

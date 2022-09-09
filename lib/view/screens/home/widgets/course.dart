@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
+import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:learn_english/view/screens/question_screen/question_screen.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../model/course_model.dart';
 
@@ -13,6 +16,9 @@ class Course extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        if (Provider.of<ThemeProviderGame>(context, listen: false).isSoundOn) {
+          SoundController.playSoundPress();
+        }
         Navigator.push(
           context,
           MaterialPageRoute(
