@@ -5,6 +5,7 @@ import 'package:learn_english/common/manager/share_preference_service.dart';
 import 'package:learn_english/common/network/client.dart';
 import 'package:learn_english/injector/injector_container.dart';
 import 'package:learn_english/router/routing-name.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    SoundController.initSound();
     _loadNextScreen();
     super.initState();
   }

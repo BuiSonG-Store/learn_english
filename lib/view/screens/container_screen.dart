@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:learn_english/common/constants/icons_const.dart';
+import 'package:learn_english/view/play_game/config/sound_controller.dart';
+import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:learn_english/view/screens/chat/chat_main.dart';
 import 'package:learn_english/view/screens/home/home_screen.dart';
 import 'package:learn_english/view/screens/personal/personal_screen.dart';
 import 'package:learn_english/view/screens/rank/rank_screen.dart';
+import 'package:provider/provider.dart';
 
 class ContainerScreen extends StatefulWidget {
   const ContainerScreen({Key? key}) : super(key: key);
@@ -32,7 +35,12 @@ class _ContainerScreenState extends State<ContainerScreen> {
         showElevation: true,
         itemCornerRadius: 24,
         curve: Curves.easeIn,
-        onItemSelected: (index) => setState(() => _currentIndex = index),
+        onItemSelected: (index) {
+          if (Provider.of<ThemeProviderGame>(context, listen: false).isSoundOn) {
+            SoundController.playSoundPress();
+          }
+          setState(() => _currentIndex = index);
+        },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
             icon: Image.asset(IconConst.learning, width: 30),

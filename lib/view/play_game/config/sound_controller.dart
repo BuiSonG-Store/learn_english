@@ -17,6 +17,9 @@ class SoundController {
 
   static int backGrSoundSlideParty = -1;
 
+  static int trueSound = -1;
+  static int falseSound = -1;
+
   static RingerMode? ringerMode = RingerMode.NORMAL;
 
   static Future initSound() async {
@@ -31,6 +34,10 @@ class SoundController {
       backGrSoundSlideParty = await pool.load(asset4);
       var asset5 = await rootBundle.load('assets/sounds/click1.wav');
       clickSoundSlideParty = await pool.load(asset5);
+      var asset6 = await rootBundle.load('assets/sounds/true.wav');
+      trueSound = await pool.load(asset6);
+      var asset7 = await rootBundle.load('assets/sounds/false.wav');
+      falseSound = await pool.load(asset7);
       if (Platform.isIOS) {
         RealVolume.onRingerModeChanged.listen((event) {
           ringerMode = event;
@@ -45,6 +52,24 @@ class SoundController {
         return;
       }
       pool.play(mergeSound);
+    } catch (_) {}
+  }
+
+  static void playSoundTrue() async {
+    try {
+      if (ringerMode == RingerMode.SILENT) {
+        return;
+      }
+      pool.play(trueSound);
+    } catch (_) {}
+  }
+
+  static void playSoundFalse() async {
+    try {
+      if (ringerMode == RingerMode.SILENT) {
+        return;
+      }
+      pool.play(falseSound);
     } catch (_) {}
   }
 
