@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:learn_english/common/global_app_cache/global_app_cache.dart';
+import 'package:learn_english/provider/course_details_provider.dart';
 import 'package:learn_english/provider/create_account_provider.dart';
 import 'package:learn_english/provider/exercise_provider.dart';
 import 'package:learn_english/provider/home_provider.dart';
@@ -47,6 +48,7 @@ void main() async {
           ChangeNotifierProvider(create: (context) => RankProvider()),
           ChangeNotifierProvider(create: (context) => ExerciseProvider()),
           ChangeNotifierProvider(create: (context) => ThemeProviderGame()),
+          ChangeNotifierProvider(create: (context) => CourseDetailsProvider()),
         ],
         child: const MyApp(),
       ),
