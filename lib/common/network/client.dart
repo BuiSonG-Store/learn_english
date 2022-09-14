@@ -11,7 +11,7 @@ import 'package:learn_english/model/log_in_model.dart';
 class AppClient {
   AppClient();
 
-  Future<Map<String, dynamic>> get(String endPoint, {bool token = false}) async {
+  Future<dynamic> get(String endPoint, {bool token = false}) async {
     var url = Uri.parse('${Configurations.host}$endPoint');
     Response? response;
     var data;

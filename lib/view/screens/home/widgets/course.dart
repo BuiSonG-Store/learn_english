@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
-import 'package:learn_english/view/screens/question_screen/question_screen.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/course_model.dart';
+import '../../course/course_screen.dart';
 
 class Course extends StatelessWidget {
   final ListCourse? model;
@@ -22,7 +22,7 @@ class Course extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => QuestionScreen(id: model?.id.toString()),
+            builder: (context) => CourseScreen(id: model!.id.toString()),
           ),
         );
       },
