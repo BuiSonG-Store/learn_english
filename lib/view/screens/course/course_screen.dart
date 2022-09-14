@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 class CourseScreen extends StatefulWidget {
   final String id;
+
   const CourseScreen({Key? key, required this.id}) : super(key: key);
 
   @override
@@ -13,6 +14,8 @@ class CourseScreen extends StatefulWidget {
 }
 
 class _CourseScreenState extends State<CourseScreen> {
+  bool runFirst = true;
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +23,10 @@ class _CourseScreenState extends State<CourseScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<CourseDetailsProvider>(context).getData(widget.id);
+    if (runFirst) {
+      runFirst = false;
+      Provider.of<CourseDetailsProvider>(context).getData(widget.id);
+    }
 
     return Scaffold(
       body: Consumer<CourseDetailsProvider>(
@@ -31,7 +37,8 @@ class _CourseScreenState extends State<CourseScreen> {
                 children: [
                   GridView.builder(
                       shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 2,
                       ),
@@ -55,6 +62,7 @@ class _CourseScreenState extends State<CourseScreen> {
 
 class Item extends StatelessWidget {
   final DetailsCourseModel model;
+
   const Item({Key? key, required this.model}) : super(key: key);
 
   @override
@@ -64,7 +72,10 @@ class Item extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => QuestionScreen(id: model.id.toString()),
+            builder: (context) => QuestionScreen(
+              id: model.id.toString(),
+              title: model.name,
+            ),
           ),
         );
       },
