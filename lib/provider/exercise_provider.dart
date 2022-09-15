@@ -15,9 +15,6 @@ class ExerciseProvider extends ChangeNotifier {
     var data = await appClient.get("exercise/$id/questions", token: true);
     for (final obj in (data as List)) {
       listQuestions.add(Questions.fromJson(obj));
-      if (listQuestions.length == 2) {
-        break;
-      }
     }
     notifyListeners();
   }
