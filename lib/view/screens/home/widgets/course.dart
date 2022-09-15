@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
@@ -40,7 +42,7 @@ class Course extends StatelessWidget {
                     radius: 40,
                     lineWidth: 8.0,
                     circularStrokeCap: CircularStrokeCap.round,
-                    percent: model!.percentageComplete ?? 0 / 100,
+                    percent: min(1,model!.percentageComplete ?? 0 / 100),
                     // percent: content!.percentageComplete ?? 0 / 100,
                     progressColor: const Color(0xFFFFC800),
                     backgroundColor: Colors.grey.shade300,

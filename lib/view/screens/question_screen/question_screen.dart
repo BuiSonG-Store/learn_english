@@ -152,6 +152,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
         .onFinishAnswer(int.parse(widget.id ?? '0'));
     Timer(Duration(seconds: 1), () {
       Navigator.pop(context);
+      Timer(Duration(milliseconds: 500), () {
+        Navigator.pop(context);
+      });
     });
   }
 
@@ -206,6 +209,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           onTap: () {
                             if (selectPage == (initPage - 1)) {
                               _onFinishAnswer(childContext);
+                              return;
                             }
                             _controller?.animateToPage((selectPage + 1),
                                 duration: const Duration(milliseconds: 250),
@@ -219,6 +223,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
               );
             });
       } else {
+        Provider.of<ExerciseProvider>(context, listen: false)
+            .updateListQuestionWhenWrong(selectPage);
         showModalBottomSheet(
             isDismissible: false,
             context: context,
@@ -257,13 +263,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           color: Colors.green,
                           title: "Tiếp tục",
                           onTap: () {
-                            if (selectPage == (initPage - 1)) {
-                              Navigator.pop(context);
-                            }
+                            // if (selectPage == (initPage - 1)) {
+                            //   Navigator.pop(context);
+                            // }
                             _controller?.animateToPage((selectPage + 1),
                                 duration: const Duration(milliseconds: 250),
                                 curve: Curves.bounceInOut);
-
                             Navigator.pop(context);
                           },
                         )
