@@ -12,6 +12,7 @@ class HomeProvider extends ChangeNotifier {
   String id = injector<LocalApp>().getStorage(StringConst.id);
   TextEditingController controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
   Future<void> getDataHome() async {
     /// lay data
     var data = await appClient.get("course?userId=$id", token: true);
@@ -24,7 +25,12 @@ class HomeProvider extends ChangeNotifier {
       "course/search",
       body: {
         "filters": [
-          {"key": "title", "operator": "LIKE", "field_type": "STRING", "value": contentSearch}
+          {
+            "key": "title",
+            "operator": "LIKE",
+            "field_type": "STRING",
+            "value": contentSearch
+          }
         ],
         "sorts": [],
         "page": 0,

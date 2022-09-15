@@ -41,6 +41,7 @@ class _CourseScreenState extends State<CourseScreen> {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 2,
+                            mainAxisExtent: 120
                       ),
                       scrollDirection: Axis.vertical,
                       itemCount: provider.listData.length,
@@ -95,14 +96,19 @@ class Item extends StatelessWidget {
           ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               model.name ?? 'null',
               style: Theme.of(context).textTheme.bodyLarge,
+              maxLines: 2,
             ),
-            Text(
-              model.description ?? 'null',
-              style: Theme.of(context).textTheme.bodyLarge,
+            Expanded(
+              child: Text(
+                model.description ?? 'null',
+                maxLines: 3,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
             ),
           ],
         ),

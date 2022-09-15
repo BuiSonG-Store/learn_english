@@ -18,8 +18,10 @@ class AppClient {
     try {
       if (token) {
         response = await http.get(url, headers: {
-          'Authorization': "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
-        }).timeout(const Duration(seconds: Configurations.connectTimeout), onTimeout: () {
+          'Authorization':
+              "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+        }).timeout(const Duration(seconds: Configurations.connectTimeout),
+            onTimeout: () {
           throw TimeOutException();
         });
         if (response.statusCode == 401) {
@@ -29,7 +31,10 @@ class AppClient {
 
         data = json.decode(response.body);
       } else {
-        response = await http.get(url).timeout(const Duration(seconds: Configurations.connectTimeout), onTimeout: () {
+        response = await http
+            .get(url)
+            .timeout(const Duration(seconds: Configurations.connectTimeout),
+                onTimeout: () {
           throw TimeOutException();
         });
         if (response.statusCode == 401) {
@@ -47,7 +52,8 @@ class AppClient {
     }
   }
 
-  Future<Map<String, dynamic>> post(String endPoint, {dynamic body, bool formData = false}) async {
+  Future<Map<String, dynamic>> post(String endPoint,
+      {dynamic body, bool formData = false}) async {
     var url = Uri.parse('${Configurations.host}$endPoint');
     Response? response;
     Map<String, dynamic> data = {};
@@ -62,7 +68,10 @@ class AppClient {
         return await post(endPoint);
       }
     } else {
-      response = await http.post(url, body: body);
+      response = await http.post(url, body: json.encode(body), headers: {
+        'Authorization':
+            "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+      });
       if (response.statusCode == 401) {
         await makeRefreshToken();
         return await post(endPoint);
@@ -75,7 +84,8 @@ class AppClient {
   }
 
   Future makeRefreshToken() async {
-    String? refreshToken = injector<LocalApp>().getStringStorage(StringConst.keySaveReFreshToken);
+    String? refreshToken =
+        injector<LocalApp>().getStringStorage(StringConst.keySaveReFreshToken);
     await _getNewAccessToken(refreshToken);
   }
 
@@ -97,11 +107,11 @@ class AppClient {
           body: json.encode({"refreshToken": refreshToken}));
       dataJson = json.decode(response.body);
       loginModel = LoginModel.fromJson(dataJson);
-      await injector<LocalApp>().saveStringStorage(StringConst.keySaveToken, loginModel.accessToken ?? '');
-      await injector<LocalApp>().saveStringStorage(StringConst.keySaveReFreshToken, loginModel.refreshToken ?? '');
+      await injector<LocalApp>().saveStringStorage(
+          StringConst.keySaveToken, loginModel.accessToken ?? '');
+      await injector<LocalApp>().saveStringStorage(
+          StringConst.keySaveReFreshToken, loginModel.refreshToken ?? '');
       return loginModel.accessToken;
     } catch (_) {}
-
-
   }
 }
