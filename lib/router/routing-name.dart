@@ -20,4 +20,5 @@ abstract class RoutingNameConstant {
   static const String aboutUsSlideParty = '/aboutUsSlideParty';
   static const String mMode = '/mMode';
   static const String sMode = '/sMode';
+  static const String done = '/done';
 }

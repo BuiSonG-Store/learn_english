@@ -4,10 +4,13 @@ import 'package:learn_english/provider/course_details_provider.dart';
 import 'package:learn_english/view/screens/question_screen/question_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../widgets/custom_appbar.dart';
+
 class CourseScreen extends StatefulWidget {
   final String id;
+  final String title;
 
-  const CourseScreen({Key? key, required this.id}) : super(key: key);
+  const CourseScreen({Key? key, required this.id, required this.title}) : super(key: key);
 
   @override
   State<CourseScreen> createState() => _CourseScreenState();
@@ -30,19 +33,21 @@ class _CourseScreenState extends State<CourseScreen> {
 
     return Scaffold(
       body: Consumer<CourseDetailsProvider>(
-        builder: (context, provider, widget) {
+        builder: (context, provider, child) {
           return Scaffold(
             body: SingleChildScrollView(
               child: Column(
                 children: [
+                  CustomAppbar(
+                    title: widget.title,
+                    haveIcon1: false,
+                    haveIcon2: false,
+                    haveIconPop: true,
+                  ),
                   GridView.builder(
                       shrinkWrap: true,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 2,
-                            mainAxisExtent: 120
-                      ),
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, childAspectRatio: 2, mainAxisExtent: 120),
                       scrollDirection: Axis.vertical,
                       itemCount: provider.listData.length,
                       physics: const NeverScrollableScrollPhysics(),
@@ -98,15 +103,30 @@ class Item extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              model.name ?? 'null',
-              style: Theme.of(context).textTheme.bodyLarge,
-              maxLines: 2,
+            Container(
+              padding: const EdgeInsets.all(8),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.purple.withOpacity(0.5),
+                      Colors.white.withOpacity(0.5),
+                    ],
+                    tileMode: TileMode.clamp,
+                  ),
+                  borderRadius: BorderRadius.circular(8)),
+              child: Text(
+                model.name ?? '',
+                style: Theme.of(context).textTheme.bodyLarge,
+                maxLines: 2,
+              ),
             ),
+            const SizedBox(height: 6),
             Expanded(
               child: Text(
-                model.description ?? 'null',
-                maxLines: 3,
+                model.description ?? '',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),

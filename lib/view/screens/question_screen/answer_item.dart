@@ -5,7 +5,6 @@ class AnswerItem extends StatelessWidget {
   final Answers answers;
   const AnswerItem({Key? key, required this.answers}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,22 +12,18 @@ class AnswerItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 6),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-          color: (answers.isSelected ?? false)? Colors.green : Colors.white,
+          color: (answers.isSelected ?? false) ? Colors.green : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: (answers.isSelected ?? false) ? Colors.green : Colors.black38, width: 2)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(width: 10),
-
-          Text(
-            '${answers.answerKey}.',
-            style: TextStyle(color: (answers.isSelected ?? false) ? Colors.white : Colors.black87, fontWeight: FontWeight.w400),
-          ),
-          const SizedBox(width: 10),
-          Expanded(child: Text(
+          Expanded(
+              child: Text(
             '${answers.answerValue}',
-            style: TextStyle(color: (answers.isSelected ?? false) ? Colors.white : Colors.black87, fontWeight: FontWeight.w400),
+            style: TextStyle(
+                color: (answers.isSelected ?? false) ? Colors.white : Colors.black87, fontWeight: FontWeight.w400),
             maxLines: 2,
           ))
         ],
@@ -36,5 +31,3 @@ class AnswerItem extends StatelessWidget {
     );
   }
 }
-
-
