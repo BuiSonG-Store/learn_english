@@ -11,6 +11,7 @@ import 'package:learn_english/view/screens/login/login_screen.dart';
 import 'package:learn_english/view/screens/container_screen.dart';
 import 'package:learn_english/view/screens/introl_screen/intro_screen.dart';
 import 'package:learn_english/view/screens/login/let_you_login.dart';
+import 'package:learn_english/view/screens/question_screen/widgets/done_question.dart';
 import 'package:learn_english/view/screens/splash/splash_screen.dart';
 import '../view/play_game/features/choose_game/start_choose_game.dart';
 import '../view/play_game/features/slide_party/features/home/screens/home_page.dart';
@@ -35,6 +36,7 @@ abstract class RoutesConstant {
     RoutingNameConstant.chooseGame: (BuildContext context) => const ChooseGame(),
     RoutingNameConstant.startChooseGame: (BuildContext context) => const StartChooseGame(),
     RoutingNameConstant.homePageSlideParty: (BuildContext context) => const HomePageSlideParty(),
+    RoutingNameConstant.done: (BuildContext context) => const DoneQuestion(),
     RoutingNameConstant.mMode: (BuildContext context) => ProviderScope(
         overrides: [playboardControllerProvider.overrideWithProvider(multipleModeControllerProvider)],
         child: const MultipleModePage()),

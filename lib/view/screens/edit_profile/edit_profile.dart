@@ -32,7 +32,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     String? avt = injector<LocalApp>().getStringStorage(StringConst.avt);
-    print(avt);
     return Scaffold(
       body: Form(
         child: Column(
