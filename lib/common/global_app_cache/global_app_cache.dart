@@ -10,5 +10,9 @@ class GlobalAppCache {
   static GlobalAppCache get instance => _instance;
 
   Box? box;
+  bool forRegister = true;
 
+  void setForRegister(bool value) {
+    forRegister = value;
+  }
 }

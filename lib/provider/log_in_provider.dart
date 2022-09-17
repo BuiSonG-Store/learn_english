@@ -38,7 +38,7 @@ class LogInProvider extends ChangeNotifier {
       if (model.id != null) {
         /// lưu token.dart và refresh token.dart
         LoadingProcessBuilder.hideProgressDialog(_);
-
+        injector<LocalApp>().saveStringStorage(StringConst.passwordLogin, passwordController.text);
         injector<LocalApp>().saveStringStorage(StringConst.keySaveToken, model.accessToken ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.keySaveReFreshToken, model.refreshToken ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.userName, model.username ?? "");

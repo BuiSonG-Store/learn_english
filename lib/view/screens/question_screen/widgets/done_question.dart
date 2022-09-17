@@ -34,7 +34,7 @@ class DoneQuestion extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: CustomButtonText(
           onTab: () {
-            Navigator.pushNamed(context, RoutingNameConstant.homeContainer);
+            Navigator.pop(context);
           },
           text: 'Đồng ý',
           background: Colors.green,

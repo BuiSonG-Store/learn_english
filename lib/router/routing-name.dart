@@ -21,4 +21,5 @@ abstract class RoutingNameConstant {
   static const String mMode = '/mMode';
   static const String sMode = '/sMode';
   static const String done = '/done';
+  static const String DoneQuestion = '/DoneQuestion';
 }

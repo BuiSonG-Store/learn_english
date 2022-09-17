@@ -3,6 +3,7 @@ import 'package:learn_english/common/local/local_app.dart';
 import 'package:learn_english/common/network/client.dart';
 import 'package:learn_english/injector/injector_container.dart';
 import 'package:learn_english/model/course_model.dart';
+import 'package:learn_english/provider/loading_provider.dart';
 
 import '../common/constants/string_const.dart';
 
@@ -18,6 +19,7 @@ class HomeProvider extends ChangeNotifier {
     var data = await appClient.get("course?userId=$id", token: true);
     courseModel = CourseModel.fromJson(data);
     notifyListeners();
+
   }
 
   Future<void> search(String contentSearch) async {
