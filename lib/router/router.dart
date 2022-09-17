@@ -23,25 +23,46 @@ import '../view/play_game/features/slide_party/features/single_mode/screens/sing
 
 abstract class RoutesConstant {
   static final routes = <String, WidgetBuilder>{
-    RoutingNameConstant.homeContainer: (BuildContext context) => const ContainerScreen(),
-    RoutingNameConstant.introScreen: (BuildContext context) => const IntroScreen(),
-    RoutingNameConstant.letYouLogInScreen: (BuildContext context) => const LetYouLogInScreen(),
-    RoutingNameConstant.createAccount: (BuildContext context) => const CreateAccount(),
-    RoutingNameConstant.splashScreen: (BuildContext context) => const SplashScreen(),
-    RoutingNameConstant.logInScreen: (BuildContext context) => const LogInScreen(),
-    RoutingNameConstant.confirmEmail: (BuildContext context) => const ConfirmEmail(),
-    RoutingNameConstant.editProfile: (BuildContext context) => const EditProfile(),
-    RoutingNameConstant.chatDetailScreen: (BuildContext context) => const ChatDetailScreen(),
-    RoutingNameConstant.chatScreen: (BuildContext context) => const ChatScreen(),
-    RoutingNameConstant.chooseGame: (BuildContext context) => const ChooseGame(),
-    RoutingNameConstant.startChooseGame: (BuildContext context) => const StartChooseGame(),
-    RoutingNameConstant.homePageSlideParty: (BuildContext context) => const HomePageSlideParty(),
+    RoutingNameConstant.homeContainer: (BuildContext context) =>
+        const ContainerScreen(),
+    RoutingNameConstant.introScreen: (BuildContext context) =>
+        const IntroScreen(),
+    RoutingNameConstant.letYouLogInScreen: (BuildContext context) =>
+        const LetYouLogInScreen(),
+    RoutingNameConstant.createAccount: (BuildContext context) =>
+        const CreateAccount(),
+    RoutingNameConstant.splashScreen: (BuildContext context) =>
+        const SplashScreen(),
+    RoutingNameConstant.logInScreen: (BuildContext context) =>
+        const LogInScreen(),
+    RoutingNameConstant.confirmEmail: (BuildContext context) =>
+        const ConfirmEmail(),
+    RoutingNameConstant.editProfile: (BuildContext context) =>
+        const EditProfile(),
+    RoutingNameConstant.DoneQuestion: (BuildContext context) =>
+        const DoneQuestion(),
+    RoutingNameConstant.chatDetailScreen: (BuildContext context) =>
+        const ChatDetailScreen(),
+    RoutingNameConstant.chatScreen: (BuildContext context) =>
+        const ChatScreen(),
+    RoutingNameConstant.chooseGame: (BuildContext context) =>
+        const ChooseGame(),
+    RoutingNameConstant.startChooseGame: (BuildContext context) =>
+        const StartChooseGame(),
+    RoutingNameConstant.homePageSlideParty: (BuildContext context) =>
+        const HomePageSlideParty(),
     RoutingNameConstant.done: (BuildContext context) => const DoneQuestion(),
     RoutingNameConstant.mMode: (BuildContext context) => ProviderScope(
-        overrides: [playboardControllerProvider.overrideWithProvider(multipleModeControllerProvider)],
-        child: const MultipleModePage()),
+            overrides: [
+              playboardControllerProvider
+                  .overrideWithProvider(multipleModeControllerProvider)
+            ],
+            child: const MultipleModePage()),
     RoutingNameConstant.sMode: (BuildContext context) => ProviderScope(
-          overrides: [playboardControllerProvider.overrideWithProvider(singleModeControllerProvider)],
+          overrides: [
+            playboardControllerProvider
+                .overrideWithProvider(singleModeControllerProvider)
+          ],
           child: const SingleModePage(),
         ),
   };

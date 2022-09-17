@@ -6,6 +6,7 @@ import 'package:learn_english/provider/course_details_provider.dart';
 import 'package:learn_english/provider/create_account_provider.dart';
 import 'package:learn_english/provider/exercise_provider.dart';
 import 'package:learn_english/provider/home_provider.dart';
+import 'package:learn_english/provider/loading_provider.dart';
 import 'package:learn_english/provider/log_in_provider.dart';
 import 'package:learn_english/provider/rank_provider.dart';
 import 'package:learn_english/provider/theme_provider.dart';
@@ -16,6 +17,7 @@ import 'package:learn_english/injector/injector_container.dart' as di;
 import 'package:learn_english/view/play_game/features/slide_party/bootstraps.dart';
 import 'package:learn_english/view/play_game/plugin/locator.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
+import 'package:learn_english/view/widgets/loading/loading_container.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,13 +44,17 @@ void main() async {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => CreateAccountProvider()),
-          ChangeNotifierProvider(create: (context) => ThemeProvider(isDarkTheme)),
+          ChangeNotifierProvider(
+              create: (context) => ThemeProvider(isDarkTheme)),
           ChangeNotifierProvider(create: (context) => LogInProvider()),
           ChangeNotifierProvider(create: (context) => HomeProvider()),
           ChangeNotifierProvider(create: (context) => RankProvider()),
           ChangeNotifierProvider(create: (context) => ExerciseProvider()),
           ChangeNotifierProvider(create: (context) => ThemeProviderGame()),
           ChangeNotifierProvider(create: (context) => CourseDetailsProvider()),
+          ChangeNotifierProvider(
+            create: (context) => LoadingProvider.instance,
+          ),
         ],
         child: const MyApp(),
       ),
@@ -69,13 +75,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeProvider>(
       builder: (context, theme, _) => MaterialApp(
-        theme: theme.getTheme(),
-        navigatorKey: NavigationService.instance.navigatorKey,
-        debugShowCheckedModeBanner: false,
-        title: 'English',
-        initialRoute: RoutingNameConstant.splashScreen,
-        routes: RoutesConstant.routes,
-      ),
+          theme: theme.getTheme(),
+          navigatorKey: NavigationService.instance.navigatorKey,
+          debugShowCheckedModeBanner: false,
+          title: 'English',
+          initialRoute: RoutingNameConstant.splashScreen,
+          routes: RoutesConstant.routes,
+          builder: (context, widget) {
+            return LoadingContainer(
+              child: widget ?? const SizedBox(),
+            );
+          }),
     );
   }
 }

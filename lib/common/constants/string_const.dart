@@ -5,7 +5,8 @@ class StringConst {
 
   static const appName = '';
   static const email = 'Email';
-  static const password = 'Password';
+  static const passwordLogin = 'passwordLogin';
+
   static const register = 'Register';
   static const login = 'Login';
   static const userName = 'UserName';

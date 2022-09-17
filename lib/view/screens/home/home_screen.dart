@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:learn_english/common/utils/validate_util.dart';
 import 'package:learn_english/provider/home_provider.dart';
@@ -15,15 +17,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isFirst = true;
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
   }
 
+  void _onGetData(String? value, context, provider) {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      provider.search(value ?? '');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if(isFirst){
+    if (isFirst) {
       Provider.of<HomeProvider>(context).getDataHome();
       isFirst = false;
     }
@@ -43,9 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: CustomTextField(
                     controller: provider.controller,
                     hintText: "Search...",
+                    onChange: (String? value) {
+                      _onGetData(value, context, provider);
+                    },
+                    textInputAction: TextInputAction.search,
                     onValidate: ValidateUtil.validEmpty,
                     suffixIcon: IconButton(
-                      onPressed: () => provider.search(provider.controller.text),
+                      onPressed: () =>
+                          provider.search(provider.controller.text),
                       icon: const Icon(Icons.search),
                     ),
                   ),

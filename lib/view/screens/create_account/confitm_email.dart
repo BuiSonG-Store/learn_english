@@ -4,6 +4,8 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../provider/create_account_provider.dart';
 
 class ConfirmEmail extends StatelessWidget {
+
+
   const ConfirmEmail({Key? key}) : super(key: key);
 
   @override
@@ -48,7 +50,9 @@ class ConfirmEmail extends StatelessWidget {
                   if (code.length == 6) {
                     confirmEmail(code, context);
                   } else {
-                    CommonUtil.showSnackBar(context, title: "Vui lòng nhập đủ mã!", backgroundColor: Colors.yellow);
+                    CommonUtil.showSnackBar(context,
+                        title: "Vui lòng nhập đủ mã!",
+                        backgroundColor: Colors.yellow);
                   }
                 },
                 onCompleted: (code) => confirmEmail(code, context),

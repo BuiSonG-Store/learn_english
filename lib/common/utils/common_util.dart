@@ -15,6 +15,9 @@ class CommonUtil {
     }
     return 'Chào buổi tối 🌝';
   }
+  static void dismissKeyBoard(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
+  }
 
   static bool validateAndSave(GlobalKey<FormState> key) {
     FormState? form = key.currentState;
@@ -40,5 +43,34 @@ class CommonUtil {
       borderRadius: BorderRadius.circular(8.0),
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
     ).show(context);
+  }
+  static void showCustomBottomSheet({
+    required BuildContext context,
+    required Widget child,
+    double? height,
+    Function? onClosed,
+    EdgeInsets? margin,
+    Color? backgroundColor,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext builder) {
+        return Container(
+          height: height ?? 500,
+          // margin: margin ?? const EdgeInsets.only(top: 50),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? Colors.white,
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+          ),
+          child: child,
+        );
+      },
+    ).whenComplete(() {
+      if (onClosed != null) {
+        onClosed();
+      }
+    });
   }
 }

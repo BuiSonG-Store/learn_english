@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:learn_english/provider/exercise_provider.dart';
+import 'package:learn_english/router/routing-name.dart';
 import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:learn_english/view/widgets/button_custom.dart';
@@ -15,7 +16,8 @@ class QuestionScreen extends StatefulWidget {
   final String? id;
   final String? title;
 
-  const QuestionScreen({Key? key, required this.id, this.title}) : super(key: key);
+  const QuestionScreen({Key? key, required this.id, this.title})
+      : super(key: key);
 
   @override
   State<QuestionScreen> createState() => _QuestionScreenState();
@@ -46,7 +48,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
     }
     // title = ModalRoute.of(context)?.settings.arguments as String?;
     // title = Provider.of<ExerciseProvider>(context).exerciseModel?.name;
-    return Consumer<ExerciseProvider>(builder: (context, provider, widgetChild) {
+    return Consumer<ExerciseProvider>(
+        builder: (context, provider, widgetChild) {
       return Scaffold(
         body: Column(
           children: [
@@ -60,7 +63,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PageView.builder(
-                  itemCount: Provider.of<ExerciseProvider>(context).listQuestions.length,
+                  itemCount: Provider.of<ExerciseProvider>(context)
+                      .listQuestions
+                      .length,
                   pageSnapping: true,
                   physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (value) {
@@ -69,8 +74,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   },
                   controller: _controller,
                   itemBuilder: (context, index) {
-                    initPage = Provider.of<ExerciseProvider>(context).listQuestions.length;
-                    return itemPage(Provider.of<ExerciseProvider>(context).listQuestions[index]);
+                    initPage = Provider.of<ExerciseProvider>(context)
+                        .listQuestions
+                        .length;
+                    return itemPage(Provider.of<ExerciseProvider>(context)
+                        .listQuestions[index]);
                   },
                 ),
               ),
@@ -83,9 +91,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
             color: Colors.green,
             title: !(selectPage == (initPage - 1)) ? "Kiểm tra" : "Tiếp tục",
             onTap: () {
-              print(Provider.of<ExerciseProvider>(context, listen: false).listQuestions.length);
+              print(Provider.of<ExerciseProvider>(context, listen: false)
+                  .listQuestions
+                  .length);
               print(selectPage);
-              final model = Provider.of<ExerciseProvider>(context, listen: false).listQuestions[selectPage];
+              final model =
+                  Provider.of<ExerciseProvider>(context, listen: false)
+                      .listQuestions[selectPage];
               onTabContinue(model, context);
             },
           ),
@@ -118,7 +130,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       questions.answers?[index].isSelected = true;
 
                       /// tat ca cai con lai bang false
-                      for (int i = 0; i < (questions.answers?.length ?? 0); i++) {
+                      for (int i = 0;
+                          i < (questions.answers?.length ?? 0);
+                          i++) {
                         if (i != index) {
                           questions.answers?[i].isSelected = false;
                         }
@@ -136,11 +150,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
   }
 
   void _onFinishAnswer(parentContext) async {
-    await Provider.of<ExerciseProvider>(parentContext, listen: false).onFinishAnswer(int.parse(widget.id ?? '0'));
-    Timer(const Duration(seconds: 1), () {
+    await Provider.of<ExerciseProvider>(parentContext, listen: false)
+        .onFinishAnswer(int.parse(widget.id ?? '0'));
+    Timer(const Duration(milliseconds: 100), () {
       Navigator.pop(context);
-      Timer(const Duration(milliseconds: 500), () {
-        Navigator.pop(context);
+      Timer(const Duration(milliseconds: 100), () {
+        Navigator.popAndPushNamed(context, RoutingNameConstant.DoneQuestion);
       });
     });
   }
@@ -158,22 +173,27 @@ class _QuestionScreenState extends State<QuestionScreen> {
       if ((answers?[i].isSelected ?? false) == false) {
         continue;
       }
-      if ((answers?[i].isSelected ?? false) && answers?[i].isSelected == answers?[i].correctAnswer) {
+      if ((answers?[i].isSelected ?? false) &&
+          answers?[i].isSelected == answers?[i].correctAnswer) {
         showModalBottomSheet(
             isDismissible: false,
             context: context,
             builder: (builder) {
-              if (Provider.of<ThemeProviderGame>(context, listen: false).isSoundOn) {
+              if (Provider.of<ThemeProviderGame>(context, listen: false)
+                  .isSoundOn) {
                 SoundController.playSoundTrue();
               }
               return Container(
                 height: MediaQuery.of(context).size.height / 5,
                 color: Colors.transparent,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0))),
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10.0),
+                          topRight: Radius.circular(10.0))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -194,7 +214,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                             return;
                           }
                           _controller?.animateToPage((selectPage + 1),
-                              duration: const Duration(milliseconds: 250), curve: Curves.bounceInOut);
+                              duration: const Duration(milliseconds: 250),
+                              curve: Curves.bounceInOut);
 
                           Navigator.pop(context);
                         },
@@ -205,23 +226,27 @@ class _QuestionScreenState extends State<QuestionScreen> {
               );
             });
       } else {
-        Provider.of<ExerciseProvider>(context, listen: false).updateListQuestionWhenWrong(selectPage);
+        Provider.of<ExerciseProvider>(context, listen: false)
+            .updateListQuestionWhenWrong(selectPage);
         showModalBottomSheet(
             isDismissible: false,
             context: context,
             builder: (builder) {
-              if (Provider.of<ThemeProviderGame>(context, listen: false).isSoundOn) {
+              if (Provider.of<ThemeProviderGame>(context, listen: false)
+                  .isSoundOn) {
                 SoundController.playSoundFalse();
               }
               return Container(
                 height: MediaQuery.of(context).size.height / 4,
                 color: Colors.transparent,
                 child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
                     decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0))),
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.0),
+                            topRight: Radius.circular(10.0))),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -229,7 +254,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           "Sai rồi! \nĐáp án đúng là: $dapAnDung",
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(color: Colors.red, fontSize: 20, fontStyle: FontStyle.italic),
+                          style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 20,
+                              fontStyle: FontStyle.italic),
                         ),
                         const SizedBox(
                           height: 10,
@@ -239,7 +267,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           title: "Tiếp tục",
                           onTap: () {
                             _controller?.animateToPage((selectPage + 1),
-                                duration: const Duration(milliseconds: 250), curve: Curves.bounceInOut);
+                                duration: const Duration(milliseconds: 250),
+                                curve: Curves.bounceInOut);
                             Navigator.pop(context);
                           },
                         )

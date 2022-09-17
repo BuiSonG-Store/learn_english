@@ -7,80 +7,113 @@ import 'package:learn_english/common/local/local_app.dart';
 import 'package:learn_english/common/network/configs.dart';
 import 'package:learn_english/injector/injector_container.dart';
 import 'package:learn_english/model/log_in_model.dart';
+import 'package:learn_english/provider/loading_provider.dart';
 
 class AppClient {
   AppClient();
 
-  Future<dynamic> get(String endPoint, {bool token = false}) async {
-    var url = Uri.parse('${Configurations.host}$endPoint');
-    Response? response;
-    var data;
+  Future<dynamic> get(String endPoint,
+      {bool token = false, bool refreshToken = false}) async {
     try {
-      if (token) {
-        response = await http.get(url, headers: {
-          'Authorization':
-              "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
-        }).timeout(const Duration(seconds: Configurations.connectTimeout),
-            onTimeout: () {
-          throw TimeOutException();
-        });
-        if (response.statusCode == 401) {
-          await makeRefreshToken();
-          return await get(endPoint, token: true);
+      LoadingProvider.instance.onShowLoading(true);
+      var url = Uri.parse('${Configurations.host}$endPoint');
+      Response? response;
+      var data;
+      try {
+        if (token) {
+          response = await http.get(url, headers: {
+            'Authorization':
+                "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+          }).timeout(const Duration(seconds: Configurations.connectTimeout),
+              onTimeout: () {
+            throw TimeOutException();
+          });
+        } else {
+          response = await http
+              .get(url)
+              .timeout(const Duration(seconds: Configurations.connectTimeout),
+                  onTimeout: () {
+            throw TimeOutException();
+          });
         }
+        if (response.statusCode == 401 && !refreshToken) {
+          await makeRefreshToken();
+          return await get(endPoint, token: true, refreshToken: true);
+        }
+        data = json.decode(response.body);
 
-        data = json.decode(response.body);
-      } else {
-        response = await http
-            .get(url)
-            .timeout(const Duration(seconds: Configurations.connectTimeout),
-                onTimeout: () {
+        return data;
+      } catch (e) {
+        if (e.runtimeType == TimeOutException) {
           throw TimeOutException();
-        });
-        if (response.statusCode == 401) {
-          await makeRefreshToken();
-          return await get(endPoint, token: true);
         }
-        data = json.decode(response.body);
+        return {};
       }
-      return data;
     } catch (e) {
-      if (e.runtimeType == TimeOutException) {
-        throw TimeOutException();
-      }
-      return {};
+      rethrow;
+    } finally {
+      LoadingProvider.instance.onShowLoading(false);
     }
   }
 
   Future<Map<String, dynamic>> post(String endPoint,
-      {dynamic body, bool formData = false}) async {
-    var url = Uri.parse('${Configurations.host}$endPoint');
-    Response? response;
-    Map<String, dynamic> data = {};
-    if (formData) {
-      response = await http.post(url,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: json.encode(body));
-      if (response.statusCode == 401) {
-        await makeRefreshToken();
-        return await post(endPoint);
+      {dynamic body, bool formData = false, bool refreshToken = false}) async {
+    try {
+      var url = Uri.parse('${Configurations.host}$endPoint');
+      Response? response;
+      Map<String, dynamic> data = {};
+      if (formData) {
+        response = await http.post(url,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization':
+                  "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}",
+            },
+            body: json.encode(body));
+      } else {
+        response = await http.post(url, body: json.encode(body), headers: {
+          'Authorization':
+              "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+        });
       }
-    } else {
-      response = await http.post(url, body: json.encode(body), headers: {
+      if (response.statusCode == 401 && !refreshToken) {
+        await makeRefreshToken();
+        return await post(endPoint, refreshToken: true);
+      }
+      if (response.body.isNotEmpty) {
+        data = json.decode(response.body);
+      }
+      return data;
+    } catch (e) {
+      rethrow;
+    } finally {
+      LoadingProvider.instance.onShowLoading(false);
+    }
+  }
+
+  Future<dynamic> put(String endPoint,
+      {dynamic body, bool formData = false, bool refreshToken = false}) async {
+    try {
+      var url = Uri.parse('${Configurations.host}$endPoint');
+      Map<String, dynamic> data = {};
+      Response response =
+          await http.put(url, body: json.encode(body), headers: {
         'Authorization':
             "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
       });
-      if (response.statusCode == 401) {
+      if (response.statusCode == 401 && !refreshToken) {
         await makeRefreshToken();
-        return await post(endPoint);
+        return await put(endPoint, refreshToken: true);
       }
+      if (response.body.isNotEmpty) {
+        data = json.decode(response.body);
+      }
+      return data;
+    } catch (e) {
+      rethrow;
+    } finally {
+      LoadingProvider.instance.onShowLoading(false);
     }
-    if (response.body.isNotEmpty) {
-      data = json.decode(response.body);
-    }
-    return data;
   }
 
   Future makeRefreshToken() async {
