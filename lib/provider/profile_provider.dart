@@ -21,8 +21,8 @@ class ProfileProvider extends ChangeNotifier {
         "password": password,
         "level": level
       });
-      CommonUtil.showSnackBar(context,
-          title: 'Update thông tin thành công', color: Colors.green);
+      // CommonUtil.showSnackBar(context,
+      //     title: 'Update thông tin thành công', color: Colors.green);
     } catch (e) {
       CommonUtil.showSnackBar(context,
           title: 'Đã xảy ra lỗi', color: Colors.orange);

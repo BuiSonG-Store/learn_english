@@ -19,7 +19,6 @@ class HomeProvider extends ChangeNotifier {
     var data = await appClient.get("course?userId=$id", token: true);
     courseModel = CourseModel.fromJson(data);
     notifyListeners();
-
   }
 
   Future<void> search(String contentSearch) async {

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:learn_english/common/constants/string_const.dart';
 import 'package:learn_english/common/global_app_cache/global_app_cache.dart';
+import 'package:learn_english/common/local/local_app.dart';
 import 'package:learn_english/common/manager/share_preference_service.dart';
 import 'package:learn_english/common/network/client.dart';
 import 'package:learn_english/common/network/configs.dart';
@@ -95,18 +96,12 @@ Future<Map<String, dynamic>> confirmEmail(String code, context) async {
               ? "Xác nhận thành công, bạn có thể đăng nhập!"
               : 'Cập nhật thông tin thành công!',
           backgroundColor: Colors.green);
+      injector<LocalApp>().removeStorage(StringConst.keySaveToken);
       Future.delayed(const Duration(seconds: 1), () {
-        if (forRegister) {
-          Navigator.pushReplacementNamed(
-            context,
-            RoutingNameConstant.logInScreen,
-          );
-        } else {
-          Navigator.pop(context);
-          Timer(Duration(milliseconds: 500), () {
-            Navigator.pop(context);
-          });
-        }
+        Navigator.pushReplacementNamed(
+          context,
+          RoutingNameConstant.logInScreen,
+        );
       });
     }
     if (response.statusCode == 500) {
@@ -118,5 +113,7 @@ Future<Map<String, dynamic>> confirmEmail(String code, context) async {
     return data;
   } catch (_) {
     return {};
+  }finally{
+    GlobalAppCache.instance.setForRegister(false);
   }
 }

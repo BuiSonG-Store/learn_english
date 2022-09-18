@@ -4,8 +4,6 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../provider/create_account_provider.dart';
 
 class ConfirmEmail extends StatelessWidget {
-
-
   const ConfirmEmail({Key? key}) : super(key: key);
 
   @override

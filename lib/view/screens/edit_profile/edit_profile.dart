@@ -34,6 +34,7 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     userNameController.text =
         injector<LocalApp>().getStorage(StringConst.userName);
+    _eGroupLevel = injector<LocalApp>().getStorage(StringConst.level);
     emailController.text = injector<LocalApp>().getStorage(StringConst.email);
     super.initState();
   }
@@ -70,7 +71,6 @@ class _EditProfileState extends State<EditProfile> {
     GlobalAppCache.instance.setForRegister(false);
     await Navigator.pushNamed(context, RoutingNameConstant.confirmEmail);
     GlobalAppCache.instance.setForRegister(true);
-    Navigator.of(context).pop();
   }
 
   @override

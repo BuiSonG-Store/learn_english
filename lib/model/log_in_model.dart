@@ -3,6 +3,7 @@ class LoginModel {
   String? accessToken;
   String? type;
   String? username;
+  String? level;
   String? email;
   String? refreshToken;
   List<dynamic>? roles;
@@ -12,6 +13,7 @@ class LoginModel {
     accessToken = json['accessToken'];
     type = json['type'];
     username = json['username'];
+    level = json['level'];
     email = json['email'];
     refreshToken = json['refreshToken'];
     roles = json['roles'];
