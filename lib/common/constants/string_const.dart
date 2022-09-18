@@ -12,6 +12,7 @@ class StringConst {
   static const userName = 'UserName';
   static const level = 'level';
   static const id = 'id';
+  static const groupIds = 'groupIds';
   static const avt = 'avt';
 
   static const introTitle1 = 'We provide the best learning courses & great mentors!';

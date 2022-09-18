@@ -26,27 +26,8 @@ class LoadingContainer extends StatelessWidget {
                     width: double.infinity,
                     height: double.infinity,
                     child: Center(
-                      child: Container(
-                        width: 140,
-                        height: 70,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.white),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            CircularProgressIndicator(
-                              color: Colors.blueAccent,
-                            ),
-                            SizedBox(width: 12),
-                            Text(
-                              'Loading...',
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            )
-                          ],
-                        ),
+                      child: CircularProgressIndicator(
+                        color: Colors.blueAccent,
                       ),
                     ),
                   ),

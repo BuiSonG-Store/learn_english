@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:learn_english/common/local/local_app.dart';
 import 'package:learn_english/common/network/client.dart';
@@ -10,13 +12,21 @@ import '../common/constants/string_const.dart';
 class HomeProvider extends ChangeNotifier {
   AppClient appClient = injector<AppClient>();
   CourseModel? courseModel;
-  String id = injector<LocalApp>().getStorage(StringConst.id);
+
   TextEditingController controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   Future<void> getDataHome() async {
-    /// lay data
-    var data = await appClient.get("course?userId=$id", token: true);
+    List<dynamic> groupId = [];
+    if (injector<LocalApp>().getStringStorage(StringConst.groupIds) != null) {
+      groupId = jsonDecode(
+          injector<LocalApp>().getStringStorage(StringConst.groupIds) ?? '');
+    }
+    String userId = injector<LocalApp>().getStorage(StringConst.id);
+    var data = await appClient.post("course/all", body: {
+      'userId': userId,
+      'groupId': groupId,
+    });
     courseModel = CourseModel.fromJson(data);
     notifyListeners();
   }
