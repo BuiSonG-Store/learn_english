@@ -80,6 +80,7 @@ class AppClient {
         });
       } else {
         response = await http.post(url, body: json.encode(body), headers: {
+          'Content-Type': 'application/json',
           'Authorization':
               "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
         }).timeout(const Duration(seconds: Configurations.connectTimeout),

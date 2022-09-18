@@ -7,6 +7,7 @@ class LoginModel {
   String? email;
   String? refreshToken;
   List<dynamic>? roles;
+  List<dynamic>? groupId;
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -17,6 +18,7 @@ class LoginModel {
     email = json['email'];
     refreshToken = json['refreshToken'];
     roles = json['roles'];
+    groupId = json['groupId'];
   }
 
   Map<String, dynamic> toJson() {
