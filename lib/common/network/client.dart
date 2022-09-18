@@ -26,6 +26,7 @@ class AppClient {
                 "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
           }).timeout(const Duration(seconds: Configurations.connectTimeout),
               onTimeout: () {
+            LoadingProvider.instance.onShowLoading(false);
             throw TimeOutException();
           });
         } else {
@@ -33,6 +34,7 @@ class AppClient {
               .get(url)
               .timeout(const Duration(seconds: Configurations.connectTimeout),
                   onTimeout: () {
+            LoadingProvider.instance.onShowLoading(false);
             throw TimeOutException();
           });
         }
@@ -63,17 +65,27 @@ class AppClient {
       Response? response;
       Map<String, dynamic> data = {};
       if (formData) {
-        response = await http.post(url,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization':
-                  "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}",
-            },
-            body: json.encode(body));
+        response = await http
+            .post(url,
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization':
+                      "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}",
+                },
+                body: json.encode(body))
+            .timeout(const Duration(seconds: Configurations.connectTimeout),
+                onTimeout: () {
+          LoadingProvider.instance.onShowLoading(false);
+          throw TimeOutException();
+        });
       } else {
         response = await http.post(url, body: json.encode(body), headers: {
           'Authorization':
               "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+        }).timeout(const Duration(seconds: Configurations.connectTimeout),
+            onTimeout: () {
+          LoadingProvider.instance.onShowLoading(false);
+          throw TimeOutException();
         });
       }
       if (response.statusCode == 401 && !refreshToken) {
@@ -96,10 +108,15 @@ class AppClient {
     try {
       var url = Uri.parse('${Configurations.host}$endPoint');
       Map<String, dynamic> data = {};
-      Response response =
-          await http.put(url, body: json.encode(body), headers: {
+      Response response = await http
+          .put(url, body: json.encode(body), headers: {
+        'Content-Type': 'application/json',
         'Authorization':
             "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+      }).timeout(const Duration(seconds: Configurations.connectTimeout),
+              onTimeout: () {
+        LoadingProvider.instance.onShowLoading(false);
+        throw TimeOutException();
       });
       if (response.statusCode == 401 && !refreshToken) {
         await makeRefreshToken();

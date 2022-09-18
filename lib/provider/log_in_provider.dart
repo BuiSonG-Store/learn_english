@@ -42,6 +42,7 @@ class LogInProvider extends ChangeNotifier {
         injector<LocalApp>().saveStringStorage(StringConst.keySaveToken, model.accessToken ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.keySaveReFreshToken, model.refreshToken ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.userName, model.username ?? "");
+        injector<LocalApp>().saveStringStorage(StringConst.level, model.level ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.email, model.email ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.id, model.id.toString());
 

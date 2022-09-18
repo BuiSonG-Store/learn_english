@@ -10,6 +10,7 @@ class StringConst {
   static const register = 'Register';
   static const login = 'Login';
   static const userName = 'UserName';
+  static const level = 'level';
   static const id = 'id';
   static const avt = 'avt';
 
