@@ -13,7 +13,7 @@ class CourseDetailsProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
 
   Future<void> getData(String id) async {
-    var data = await appClient.get("course/2/exercise", token: true);
+    var data = await appClient.get("course/$id/exercise", token: true);
     detailsCourseModel = DetailsCourseModel.fromJson(data);
 
     notifyListeners();

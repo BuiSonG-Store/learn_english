@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_english/view/screens/chat/my_chat_rooms/my_chat_screen.dart';
+import 'package:learn_english/view/widgets/custom_appbar.dart';
 
 class ChatMain extends StatefulWidget {
   const ChatMain({Key? key}) : super(key: key);
@@ -19,16 +20,19 @@ class _ChatMainState extends State<ChatMain> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Chat room',
-          style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.w700),
-        ),
-        actions: [IconButton(onPressed: _showIn4, icon: Image.asset('assets/icons/confused.png'))],
-        backgroundColor: Theme.of(context).backgroundColor,
+      body: Column(
+        children: [
+          CustomAppbar(
+            title: 'Chat Room',
+            haveIcon1: false,
+            haveIcon2: true,
+            haveIconPop: false,
+            icon2: 'assets/icons/confused.png',
+            onRight2Tap: _showIn4,
+          ),
+          MyChatScreen(),
+        ],
       ),
-      body: const MyChatScreen(),
     );
   }
 

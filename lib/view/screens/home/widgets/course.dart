@@ -40,13 +40,12 @@ class Course extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 Transform.rotate(
-                  angle: 1.0,
+                  angle: 0,
                   child: CircularPercentIndicator(
                     radius: 40,
-                    lineWidth: 8.0,
+                    lineWidth: 10.0,
                     circularStrokeCap: CircularStrokeCap.round,
-                    percent: min(1, model!.percentageComplete ?? 0 / 100),
-                    // percent: content!.percentageComplete ?? 0 / 100,
+                    percent: min(1, (model!.percentageComplete ?? 0) / 100),
                     progressColor: const Color(0xFFFFC800),
                     backgroundColor: Colors.grey.shade300,
                   ),
