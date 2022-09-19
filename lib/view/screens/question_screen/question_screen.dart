@@ -25,11 +25,9 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   String? title;
   bool isSelect = false;
-  int initPage = 0;
+  int? initPage = 0;
   int selectPage = 0;
   PageController? _controller;
-
-  // ExerciseModel? model;
   bool isFirst = true;
 
   @override
@@ -61,7 +59,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: PageView.builder(
-                  itemCount: Provider.of<ExerciseProvider>(context).listQuestions.length,
+                  itemCount: Provider.of<ExerciseProvider>(context).questions?.content!.length,
                   pageSnapping: true,
                   physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (value) {
@@ -70,8 +68,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   },
                   controller: _controller,
                   itemBuilder: (context, index) {
-                    initPage = Provider.of<ExerciseProvider>(context).listQuestions.length;
-                    return itemPage(Provider.of<ExerciseProvider>(context).listQuestions[index]);
+                    initPage = Provider.of<ExerciseProvider>(context).questions?.content!.length;
+                    return itemPage(Provider.of<ExerciseProvider>(context).questions?.content![index]);
                   },
                 ),
               ),
@@ -82,9 +80,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
           child: ButtonCustom(
             color: Colors.green,
-            title: !(selectPage == (initPage - 1)) ? "Kiểm tra" : "Tiếp tục",
+            title: !(selectPage == ((initPage ?? 0) - 1)) ? "Kiểm tra" : "Tiếp tục",
             onTap: () {
-              final model = Provider.of<ExerciseProvider>(context, listen: false).listQuestions[selectPage];
+              final model = Provider.of<ExerciseProvider>(context, listen: false).questions?.content![selectPage];
               onTabContinue(model, context);
             },
           ),
@@ -93,13 +91,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
     });
   }
 
-  Widget itemPage(Questions questions) {
+  Widget itemPage(ContentQuestion? questions) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
         Text(
-          "Question: ${questions.question}",
+          "Question: ${questions?.question}",
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 40),
@@ -111,21 +109,19 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      if (questions.answers?[index].isSelected ?? false) {
+                      if (questions?.answers?[index].isSelected ?? false) {
                         return;
                       }
-                      questions.answers?[index].isSelected = true;
-
-                      /// tat ca cai con lai bang false
-                      for (int i = 0; i < (questions.answers?.length ?? 0); i++) {
+                      questions?.answers?[index].isSelected = true;
+                      for (int i = 0; i < (questions?.answers?.length ?? 0); i++) {
                         if (i != index) {
-                          questions.answers?[i].isSelected = false;
+                          questions?.answers?[i].isSelected = false;
                         }
                       }
                     });
                   },
                   child: AnswerItem(
-                    answers: questions.answers?[index] ?? Answers(),
+                    answers: questions?.answers?[index] ?? Answers(),
                   ),
                 );
               }),
@@ -144,10 +140,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
     });
   }
 
-  void onTabContinue(Questions questions, childContext) {
+  void onTabContinue(ContentQuestion? questions, childContext) {
     /// kiểm tra answer
     String dapAnDung = "";
-    List<Answers>? answers = questions.answers;
+    List<Answers>? answers = questions?.answers;
     for (int i = 0; i < (answers?.length ?? 0); i++) {
       if ((answers?[i].correctAnswer ?? true)) {
         dapAnDung = answers?[i].answerValue ?? "";
@@ -188,7 +184,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         color: Colors.green,
                         title: "Tiếp tục",
                         onTap: () {
-                          if (selectPage == (initPage - 1)) {
+                          if (selectPage == ((initPage ?? 0) - 2)) {
                             _onFinishAnswer(childContext);
                             return;
                           }
@@ -212,10 +208,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 SoundController.playSoundFalse();
               }
               return Container(
-                height: MediaQuery.of(context).size.height / 4,
+                height: MediaQuery.of(context).size.height / 3,
                 color: Colors.transparent,
                 child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    width: MediaQuery.of(context).size.width,
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius:
@@ -223,14 +220,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Sai rồi! \nĐáp án đúng là: $dapAnDung",
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(color: Colors.red, fontSize: 20, fontStyle: FontStyle.italic),
-                        ),
-                        const SizedBox(
-                          height: 10,
+                        Expanded(
+                          child: Text(
+                            "Sai rồi! \nĐáp án đúng là: $dapAnDung",
+                            style: const TextStyle(color: Colors.red, fontSize: 20, fontStyle: FontStyle.italic),
+                          ),
                         ),
                         ButtonCustom(
                           color: Colors.green,
