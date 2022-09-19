@@ -49,11 +49,11 @@ class _CourseScreenState extends State<CourseScreen> {
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2, childAspectRatio: 2, mainAxisExtent: 120),
                       scrollDirection: Axis.vertical,
-                      itemCount: provider.listData.length,
+                      itemCount: provider.detailsCourseModel?.content?.length ?? 0,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return Item(
-                          model: provider.listData[index],
+                          model: provider.detailsCourseModel?.content?[index],
                         );
                       }),
                 ],
@@ -67,7 +67,7 @@ class _CourseScreenState extends State<CourseScreen> {
 }
 
 class Item extends StatelessWidget {
-  final DetailsCourseModel model;
+  final DetailsCourseContent? model;
 
   const Item({Key? key, required this.model}) : super(key: key);
 
@@ -79,8 +79,8 @@ class Item extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => QuestionScreen(
-              id: model.id.toString(),
-              title: model.name,
+              id: model?.id.toString(),
+              title: model?.name,
             ),
           ),
         );
@@ -116,7 +116,7 @@ class Item extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(8)),
               child: Text(
-                model.name ?? '',
+                model?.name ?? '',
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 2,
               ),
@@ -124,7 +124,7 @@ class Item extends StatelessWidget {
             const SizedBox(height: 6),
             Expanded(
               child: Text(
-                model.description ?? '',
+                model?.description ?? '',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium,
