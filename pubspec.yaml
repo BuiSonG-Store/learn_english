@@ -58,6 +58,9 @@ dependencies:
     git:
       url: https://github.com/definev/slideparty_socket.git
       ref: main
+
+  socket_io_client: ^2.0.0
+
 flutter_app_name:
   name: "Easy English"
 flutter_icons:
