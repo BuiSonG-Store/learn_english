@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class LoadingProvider extends ChangeNotifier {
-
   factory LoadingProvider() => _instance;
 
   LoadingProvider._();
@@ -12,9 +11,9 @@ class LoadingProvider extends ChangeNotifier {
 
   bool loading = false;
 
-  void onShowLoading(bool showLoading)async{
+  void onShowLoading(bool showLoading) async {
     loading = showLoading;
-    await Future.delayed(Duration(milliseconds: 50));
+    await Future.delayed(const Duration(milliseconds: 50));
     notifyListeners();
   }
 }

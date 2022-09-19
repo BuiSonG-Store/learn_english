@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CustomAppbar extends StatelessWidget {
@@ -44,7 +43,7 @@ class CustomAppbar extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
                 haveIcon1

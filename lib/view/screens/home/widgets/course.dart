@@ -55,12 +55,15 @@ class Course extends StatelessWidget {
                   backgroundColor: Color(0xFF2B70C9),
                   radius: 25,
                 ),
-                // model?.image == null || model?.image == ""
-                //     ? Image.asset('assets/icons/logo.png')
-                //     : Image.network(
-                //         model!.image!,
-                //         width: 15,
-                //       )
+                model?.image == null || model?.image == ""
+                    ? Image.asset(
+                        'assets/icons/logo.png',
+                        width: 30,
+                      )
+                    : Image.network(
+                        model!.image!,
+                        width: 15,
+                      )
               ],
             ),
             const SizedBox(height: 20),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_english/view/screens/chat/my_chat_rooms/my_chat_screen.dart';
 
-import 'chat_rooms/chat_room.dart';
-
 class ChatMain extends StatefulWidget {
   const ChatMain({Key? key}) : super(key: key);
 
@@ -20,44 +18,17 @@ class _ChatMainState extends State<ChatMain> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 1,
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Chat room',
-            style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.w700),
-          ),
-          actions: [IconButton(onPressed: _showIn4, icon: Image.asset('assets/icons/confused.png'))],
-          backgroundColor: Theme.of(context).backgroundColor,
-          bottom: TabBar(
-            tabs: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  'Các phòng chat',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  'Phòng đã tham gia',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Chat room',
+          style: Theme.of(context).textTheme.headline6?.copyWith(fontWeight: FontWeight.w700),
         ),
-        body: const TabBarView(
-          children: <Widget>[
-            ChatRoomScreen(),
-            MyChatScreen(),
-          ],
-        ),
+        actions: [IconButton(onPressed: _showIn4, icon: Image.asset('assets/icons/confused.png'))],
+        backgroundColor: Theme.of(context).backgroundColor,
       ),
+      body: const MyChatScreen(),
     );
   }
 

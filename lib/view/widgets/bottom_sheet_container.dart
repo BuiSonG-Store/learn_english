@@ -21,12 +21,12 @@ class BottomSheetContainer extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(12.0),
           topRight: Radius.circular(12.0),
         ),
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
       ),
       child: Column(
         children: [
@@ -41,11 +41,9 @@ class BottomSheetContainer extends StatelessWidget {
             child: Container(
               width: double.infinity,
               height: 56,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      topLeft: Radius.circular(12))),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).backgroundColor,
+                  borderRadius: const BorderRadius.only(topRight: Radius.circular(12), topLeft: Radius.circular(12))),
               child: Row(
                 children: [
                   Container(
@@ -60,13 +58,12 @@ class BottomSheetContainer extends StatelessWidget {
                         child: Icon(
                       Icons.close,
                       size: 20,
-                      color: Colors.black,
                     )),
                   ),
                   Expanded(
                     child: Text(
                       title ?? '',
-                      style: TextStyle(color: Colors.black, fontSize: 16),
+                      style: Theme.of(context).textTheme.titleSmall,
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -87,7 +84,7 @@ class BottomSheetContainer extends StatelessWidget {
                       child: Center(
                           child: Text(
                         textButtonRight ?? '',
-                        style: TextStyle(color: Colors.blue),
+                        style: const TextStyle(color: Colors.blue),
                       )),
                     ),
                   )
@@ -95,7 +92,7 @@ class BottomSheetContainer extends StatelessWidget {
               ),
             ),
           ),
-          Divider(height: 1, color: Colors.grey),
+          const Divider(height: 1, color: Colors.grey),
           Expanded(child: child ?? const SizedBox()),
         ],
       ),

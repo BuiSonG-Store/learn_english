@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learn_english/common/constants/icons_const.dart';
 import 'package:learn_english/common/constants/string_const.dart';
 import 'package:learn_english/common/global_app_cache/global_app_cache.dart';
 import 'package:learn_english/common/local/local_app.dart';
@@ -9,7 +8,6 @@ import 'package:learn_english/injector/injector_container.dart';
 import 'package:learn_english/provider/profile_provider.dart';
 import 'package:learn_english/router/routing-name.dart';
 import 'package:learn_english/view/screens/edit_profile/widgets/edit_profile_egroup_level.dart';
-import 'package:learn_english/view/widgets/bottom_sheet_container.dart';
 import 'package:learn_english/view/widgets/custom_button_text.dart';
 import 'package:learn_english/view/widgets/custom_text_field.dart';
 
@@ -32,8 +30,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    userNameController.text =
-        injector<LocalApp>().getStorage(StringConst.userName);
+    userNameController.text = injector<LocalApp>().getStorage(StringConst.userName);
     _eGroupLevel = injector<LocalApp>().getStorage(StringConst.level);
     emailController.text = injector<LocalApp>().getStorage(StringConst.email);
     super.initState();
@@ -109,9 +106,7 @@ class _EditProfileState extends State<EditProfile> {
                       hintText: "Email",
                       onValidate: ValidateUtil.validEmpty,
                       readOnly: true,
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
+                      style: const TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(height: 12),
                     CustomTextField(
@@ -124,35 +119,28 @@ class _EditProfileState extends State<EditProfile> {
                       onTap: _onSelectEGroup,
                       child: Container(
                         width: double.infinity,
-                        margin: EdgeInsets.only(top: 16),
+                        margin: const EdgeInsets.only(top: 16),
                         height: 50,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.grey[300],
-                            border: Border.all(color: Colors.grey)),
+                            borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey)),
                         child: Row(
                           children: [
                             Expanded(
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text.rich(TextSpan(children: [
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: Text.rich(
                                   TextSpan(
-                                      text: 'EGroup Level: ',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      )),
-                                  TextSpan(
-                                      text: _eGroupLevel != null
-                                          ? '$_eGroupLevel'
-                                          : '',
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                      )),
-                                ])),
+                                    children: [
+                                      TextSpan(text: 'EGroup Level: ', style: Theme.of(context).textTheme.titleSmall),
+                                      TextSpan(
+                                          text: _eGroupLevel != null ? '$_eGroupLevel' : '',
+                                          style: Theme.of(context).textTheme.titleSmall),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                            Icon(Icons.arrow_drop_down),
+                            const Icon(Icons.arrow_drop_down),
                           ],
                         ),
                       ),
@@ -164,11 +152,13 @@ class _EditProfileState extends State<EditProfile> {
           ],
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: CustomButtonText(
-          onTab: _onUpdate,
-          text: 'Xong',
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          child: CustomButtonText(
+            onTab: _onUpdate,
+            text: 'Xong',
+          ),
         ),
       ),
     );
@@ -203,17 +193,14 @@ class _EditProfileState extends State<EditProfile> {
                 child: GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 0.7,
-                      crossAxisSpacing: 0.8),
+                      crossAxisCount: 3, childAspectRatio: 0.7, crossAxisSpacing: 0.8),
                   scrollDirection: Axis.vertical,
                   itemCount: ImageConst.listAvt.length,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () async {
-                        await injector<LocalApp>().saveStringStorage(
-                            StringConst.avt, ImageConst.listAvt[index]);
+                        await injector<LocalApp>().saveStringStorage(StringConst.avt, ImageConst.listAvt[index]);
                         setState(() {});
                       },
                       child: Image.asset(

@@ -12,28 +12,25 @@ import 'package:learn_english/provider/loading_provider.dart';
 class AppClient {
   AppClient();
 
-  Future<dynamic> get(String endPoint,
-      {bool token = false, bool refreshToken = false}) async {
+  Future<dynamic> get(String endPoint, {bool token = false, bool refreshToken = false}) async {
     try {
       LoadingProvider.instance.onShowLoading(true);
       var url = Uri.parse('${Configurations.host}$endPoint');
       Response? response;
       var data;
+      LoadingProvider.instance.onShowLoading(false);
+
       try {
         if (token) {
           response = await http.get(url, headers: {
-            'Authorization':
-                "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
-          }).timeout(const Duration(seconds: Configurations.connectTimeout),
-              onTimeout: () {
+            'Authorization': "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+          }).timeout(const Duration(seconds: Configurations.connectTimeout), onTimeout: () {
             LoadingProvider.instance.onShowLoading(false);
             throw TimeOutException();
           });
+          LoadingProvider.instance.onShowLoading(false);
         } else {
-          response = await http
-              .get(url)
-              .timeout(const Duration(seconds: Configurations.connectTimeout),
-                  onTimeout: () {
+          response = await http.get(url).timeout(const Duration(seconds: Configurations.connectTimeout), onTimeout: () {
             LoadingProvider.instance.onShowLoading(false);
             throw TimeOutException();
           });
@@ -69,22 +66,18 @@ class AppClient {
             .post(url,
                 headers: {
                   'Content-Type': 'application/json',
-                  'Authorization':
-                      "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}",
+                  'Authorization': "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}",
                 },
                 body: json.encode(body))
-            .timeout(const Duration(seconds: Configurations.connectTimeout),
-                onTimeout: () {
+            .timeout(const Duration(seconds: Configurations.connectTimeout), onTimeout: () {
           LoadingProvider.instance.onShowLoading(false);
           throw TimeOutException();
         });
       } else {
         response = await http.post(url, body: json.encode(body), headers: {
           'Content-Type': 'application/json',
-          'Authorization':
-              "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
-        }).timeout(const Duration(seconds: Configurations.connectTimeout),
-            onTimeout: () {
+          'Authorization': "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+        }).timeout(const Duration(seconds: Configurations.connectTimeout), onTimeout: () {
           LoadingProvider.instance.onShowLoading(false);
           throw TimeOutException();
         });
@@ -104,18 +97,14 @@ class AppClient {
     }
   }
 
-  Future<dynamic> put(String endPoint,
-      {dynamic body, bool formData = false, bool refreshToken = false}) async {
+  Future<dynamic> put(String endPoint, {dynamic body, bool formData = false, bool refreshToken = false}) async {
     try {
       var url = Uri.parse('${Configurations.host}$endPoint');
       Map<String, dynamic> data = {};
-      Response response = await http
-          .put(url, body: json.encode(body), headers: {
+      Response response = await http.put(url, body: json.encode(body), headers: {
         'Content-Type': 'application/json',
-        'Authorization':
-            "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
-      }).timeout(const Duration(seconds: Configurations.connectTimeout),
-              onTimeout: () {
+        'Authorization': "Bearer ${injector<LocalApp>().getStringStorage(StringConst.keySaveToken)}"
+      }).timeout(const Duration(seconds: Configurations.connectTimeout), onTimeout: () {
         LoadingProvider.instance.onShowLoading(false);
         throw TimeOutException();
       });
@@ -135,8 +124,7 @@ class AppClient {
   }
 
   Future makeRefreshToken() async {
-    String? refreshToken =
-        injector<LocalApp>().getStringStorage(StringConst.keySaveReFreshToken);
+    String? refreshToken = injector<LocalApp>().getStringStorage(StringConst.keySaveReFreshToken);
     await _getNewAccessToken(refreshToken);
   }
 
@@ -158,10 +146,8 @@ class AppClient {
           body: json.encode({"refreshToken": refreshToken}));
       dataJson = json.decode(response.body);
       loginModel = LoginModel.fromJson(dataJson);
-      await injector<LocalApp>().saveStringStorage(
-          StringConst.keySaveToken, loginModel.accessToken ?? '');
-      await injector<LocalApp>().saveStringStorage(
-          StringConst.keySaveReFreshToken, loginModel.refreshToken ?? '');
+      await injector<LocalApp>().saveStringStorage(StringConst.keySaveToken, loginModel.accessToken ?? '');
+      await injector<LocalApp>().saveStringStorage(StringConst.keySaveReFreshToken, loginModel.refreshToken ?? '');
       return loginModel.accessToken;
     } catch (_) {}
   }

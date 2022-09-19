@@ -72,7 +72,7 @@ class CustomTextField extends StatelessWidget {
           filled: true,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
-          fillColor: Theme.of(context).dividerColor.withOpacity(0.1),
+          fillColor: Theme.of(context).backgroundColor.withOpacity(0.1),
           hintStyle: hintStyle ?? Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.grey),
           errorStyle: Theme.of(context).textTheme.bodyText1?.copyWith(color: Theme.of(context).errorColor),
           focusedBorder: OutlineInputBorder(

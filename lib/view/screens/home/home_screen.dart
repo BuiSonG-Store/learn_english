@@ -42,9 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SafeArea(
-                child: AppbarHome(),
-              ),
+              const SafeArea(child: AppbarHome()),
               const SizedBox(height: 8),
               Form(
                 key: provider.formKey,
@@ -59,8 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     textInputAction: TextInputAction.search,
                     onValidate: ValidateUtil.validEmpty,
                     suffixIcon: IconButton(
-                      onPressed: () =>
-                          provider.search(provider.controller.text),
+                      onPressed: () => provider.search(provider.controller.text),
                       icon: const Icon(Icons.search),
                     ),
                   ),
