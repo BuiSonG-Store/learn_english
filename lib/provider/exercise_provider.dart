@@ -9,7 +9,7 @@ class ExerciseProvider extends ChangeNotifier {
   AppClient appClient = injector<AppClient>();
   Questions? questions;
 
-  Future<void> getData(String? id) async {
+  Future<void> getData(int? id) async {
     questions?.content?.clear();
     var data = await appClient.get("exercise/$id/questions", token: true);
     questions = Questions.fromJson(data);
@@ -19,7 +19,7 @@ class ExerciseProvider extends ChangeNotifier {
   Future onFinishAnswer(int exerciseId) async {
     final bodyJson = {
       "name": injector<LocalApp>().getStringStorage(StringConst.userName),
-      "score": questions?.content?.length,
+      "score": 10,
       "userId": injector<LocalApp>().getStringStorage(StringConst.id),
       "exerciseId": exerciseId
     };
@@ -27,14 +27,6 @@ class ExerciseProvider extends ChangeNotifier {
     await appClient.post('user_score', body: bodyJson);
   }
 
-  // void updateListQuestionWhenWrong(int index) {
-  //   final model = listQuestions[index];
-  //   for (int i = 0; i < (model.answers?.length ?? 0); i++) {
-  //     model.answers![i].isSelected = false;
-  //   }
-  //   listQuestions.add(model);
-  //   notifyListeners();
-  // }
   void updateListQuestionWhenWrong(int index) {
     final model = questions?.content?[index];
     for (int i = 0; i < (model?.answers?.length ?? 0); i++) {

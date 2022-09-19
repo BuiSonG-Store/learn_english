@@ -18,8 +18,7 @@ class CourseModel {
         content!.add(ListCourse.fromJson(v));
       });
     }
-    pageable =
-        json['pageable'] != null ? Pageable.fromJson(json['pageable']) : null;
+    pageable = json['pageable'] != null ? Pageable.fromJson(json['pageable']) : null;
     totalPages = json['totalPages'];
     totalElements = json['totalElements'];
     last = json['last'];
@@ -62,7 +61,7 @@ class ListCourse {
   int? participantAge;
   double? qualification;
   int? numberOfParticipants;
-  double? percentageComplete;
+  int? percentageComplete;
   List<Exercises>? exercises;
 
   ListCourse.fromJson(Map<String, dynamic> json) {
@@ -74,7 +73,7 @@ class ListCourse {
     qualification = json['qualification'];
     numberOfParticipants = json['number_of_participants'];
     if (json['percentageComplete'] != null) {
-      percentageComplete = (json['percentageComplete'] as int).toDouble();
+      percentageComplete = json['percentageComplete'];
     }
     if (json['exercises'] != null) {
       exercises = <Exercises>[];
@@ -166,8 +165,7 @@ class Answers {
   bool? correctAnswer;
   int? questionId;
 
-  Answers(
-      this.answerKey, this.answerValue, this.correctAnswer, this.questionId);
+  Answers(this.answerKey, this.answerValue, this.correctAnswer, this.questionId);
 
   Answers.fromJson(Map<String, dynamic> json) {
     answerKey = json['answer_key'];

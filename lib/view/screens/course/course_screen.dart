@@ -30,34 +30,31 @@ class _CourseScreenState extends State<CourseScreen> {
       runFirst = false;
       Provider.of<CourseDetailsProvider>(context).getData(widget.id);
     }
-
     return Scaffold(
       body: Consumer<CourseDetailsProvider>(
         builder: (context, provider, child) {
-          return Scaffold(
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomAppbar(
-                    title: widget.title,
-                    haveIcon1: false,
-                    haveIcon2: false,
-                    haveIconPop: true,
-                  ),
-                  GridView.builder(
-                      shrinkWrap: true,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: 2, mainAxisExtent: 120),
-                      scrollDirection: Axis.vertical,
-                      itemCount: provider.detailsCourseModel?.content?.length ?? 0,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return Item(
-                          model: provider.detailsCourseModel?.content?[index],
-                        );
-                      }),
-                ],
-              ),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                CustomAppbar(
+                  title: widget.title,
+                  haveIcon1: false,
+                  haveIcon2: false,
+                  haveIconPop: true,
+                ),
+                const SizedBox(height: 12),
+                ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemCount: provider.detailsCourseModel?.content?.length ?? 0,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Item(
+                      model: provider.detailsCourseModel?.content?[index],
+                    );
+                  },
+                ),
+              ],
             ),
           );
         },
@@ -79,7 +76,7 @@ class Item extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => QuestionScreen(
-              id: model?.id.toString(),
+              id: model?.id,
               title: model?.name,
             ),
           ),
@@ -87,8 +84,9 @@ class Item extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.all(12),
-        width: MediaQuery.of(context).size.width * 0.3,
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        width: MediaQuery.of(context).size.width,
+        height: 110,
         decoration: BoxDecoration(
           color: Theme.of(context).shadowColor,
           borderRadius: BorderRadius.circular(8),
@@ -103,6 +101,7 @@ class Item extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text('${model?.id}'),
             Container(
               padding: const EdgeInsets.all(8),
               width: double.infinity,

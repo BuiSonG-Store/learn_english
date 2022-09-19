@@ -7,13 +7,14 @@ import 'package:learn_english/view/play_game/config/sound_controller.dart';
 import 'package:learn_english/view/play_game/provider/theme_provider.dart';
 import 'package:learn_english/view/widgets/button_custom.dart';
 import 'package:learn_english/view/widgets/custom_appbar.dart';
+import 'package:learn_english/view/widgets/loading/loading_process_builder.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/exercise_model.dart';
 import 'answer_item.dart';
 
 class QuestionScreen extends StatefulWidget {
-  final String? id;
+  final int? id;
   final String? title;
 
   const QuestionScreen({Key? key, required this.id, this.title}) : super(key: key);
@@ -39,12 +40,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Widget build(BuildContext context) {
     if (isFirst) {
       Provider.of<ExerciseProvider>(context).getData(widget.id);
-      // initPage = Provider.of<ExerciseProvider>(context).exerciseModel?.questions?.length ?? 0;
       _controller = PageController(initialPage: 0);
       isFirst = false;
     }
-    // title = ModalRoute.of(context)?.settings.arguments as String?;
-    // title = Provider.of<ExerciseProvider>(context).exerciseModel?.name;
     return Consumer<ExerciseProvider>(builder: (context, provider, widgetChild) {
       return Scaffold(
         body: Column(
@@ -131,8 +129,11 @@ class _QuestionScreenState extends State<QuestionScreen> {
   }
 
   void _onFinishAnswer(parentContext) async {
-    await Provider.of<ExerciseProvider>(parentContext, listen: false).onFinishAnswer(int.parse(widget.id ?? '0'));
-    Timer(const Duration(milliseconds: 100), () {
+    LoadingProcessBuilder.showProgressDialog(context);
+
+    await Provider.of<ExerciseProvider>(parentContext, listen: false).onFinishAnswer(widget.id ?? 0);
+    Timer(const Duration(milliseconds: 500), () {
+      LoadingProcessBuilder.hideProgressDialog(context);
       Navigator.pop(context);
       Timer(const Duration(milliseconds: 100), () {
         Navigator.popAndPushNamed(context, RoutingNameConstant.DoneQuestion);
@@ -141,7 +142,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
   }
 
   void onTabContinue(ContentQuestion? questions, childContext) {
-    /// kiểm tra answer
     String dapAnDung = "";
     List<Answers>? answers = questions?.answers;
     for (int i = 0; i < (answers?.length ?? 0); i++) {
@@ -201,44 +201,45 @@ class _QuestionScreenState extends State<QuestionScreen> {
       } else {
         Provider.of<ExerciseProvider>(context, listen: false).updateListQuestionWhenWrong(selectPage);
         showModalBottomSheet(
-            isDismissible: false,
-            context: context,
-            builder: (builder) {
-              if (Provider.of<ThemeProviderGame>(context, listen: false).isSoundOn) {
-                SoundController.playSoundFalse();
-              }
-              return Container(
-                height: MediaQuery.of(context).size.height / 3,
-                color: Colors.transparent,
-                child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "Sai rồi! \nĐáp án đúng là: $dapAnDung",
-                            style: const TextStyle(color: Colors.red, fontSize: 20, fontStyle: FontStyle.italic),
-                          ),
-                        ),
-                        ButtonCustom(
-                          color: Colors.green,
-                          title: "Tiếp tục",
-                          onTap: () {
-                            _controller?.animateToPage((selectPage + 1),
-                                duration: const Duration(milliseconds: 250), curve: Curves.bounceInOut);
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    )),
-              );
-            });
+          isDismissible: false,
+          context: context,
+          builder: (builder) {
+            if (Provider.of<ThemeProviderGame>(context, listen: false).isSoundOn) {
+              SoundController.playSoundFalse();
+            }
+            return Container(
+              height: MediaQuery.of(context).size.height / 3,
+              color: Colors.transparent,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Sai rồi! \nĐáp án đúng là: $dapAnDung",
+                        style: const TextStyle(color: Colors.red, fontSize: 20, fontStyle: FontStyle.italic),
+                      ),
+                    ),
+                    ButtonCustom(
+                      color: Colors.green,
+                      title: "Tiếp tục",
+                      onTap: () {
+                        _controller?.animateToPage((selectPage + 1),
+                            duration: const Duration(milliseconds: 250), curve: Curves.bounceInOut);
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        );
       }
     }
   }
