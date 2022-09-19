@@ -9,15 +9,13 @@ import '../common/constants/string_const.dart';
 class CourseDetailsProvider extends ChangeNotifier {
   AppClient appClient = injector<AppClient>();
   String id = injector<LocalApp>().getStorage(StringConst.id);
-  List<dynamic> listData = [];
+  DetailsCourseModel? detailsCourseModel;
   final formKey = GlobalKey<FormState>();
 
   Future<void> getData(String id) async {
-    var data = await appClient.get("course/$id/exercise", token: true);
-    for (final obj in (data as List)) {
-      final model = DetailsCourseModel.fromJson(obj);
-      listData.add(model);
-    }
+    var data = await appClient.get("course/2/exercise", token: true);
+    detailsCourseModel = DetailsCourseModel.fromJson(data);
+
     notifyListeners();
   }
 }
