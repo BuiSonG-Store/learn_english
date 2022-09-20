@@ -24,7 +24,9 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   TextEditingController emailController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool obscureText = true;
 
   @override
   void initState() {
@@ -39,6 +41,7 @@ class _EditProfileState extends State<EditProfile> {
     await ProfileProvider().onUpdateUser(
       context,
       userNameController.text,
+      passwordController.text,
     );
     GlobalAppCache.instance.setForRegister(false);
     await Navigator.pushNamed(context, RoutingNameConstant.confirmEmail);
@@ -81,7 +84,6 @@ class _EditProfileState extends State<EditProfile> {
                       hintText: "Email",
                       onValidate: ValidateUtil.validEmpty,
                       readOnly: true,
-                      style: const TextStyle(color: Colors.grey),
                     ),
                     const SizedBox(height: 12),
                     CustomTextField(
@@ -89,6 +91,23 @@ class _EditProfileState extends State<EditProfile> {
                       hintText: "User Name",
                       onValidate: ValidateUtil.validEmpty,
                       textInputAction: TextInputAction.done,
+                    ),
+                    const SizedBox(height: 12),
+                    CustomTextField(
+                      controller: passwordController,
+                      hintText: "Password",
+                      onValidate: ValidateUtil.validEmpty,
+                      obscureText: obscureText,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            obscureText = !obscureText;
+                          });
+                        },
+                        icon: obscureText
+                            ? Icon(Icons.visibility, color: Theme.of(context).iconTheme.color)
+                            : Icon(Icons.visibility_off, color: Theme.of(context).iconTheme.color),
+                      ),
                     ),
                   ],
                 ),
