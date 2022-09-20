@@ -58,7 +58,7 @@ class _ChatMainState extends State<ChatMain> with TickerProviderStateMixin {
           ],
         ),
         content: const Text(
-            'Phòng chat chia sẻ các khóa học và giúp đỡ nhau trong học tập cùng mọi người và các thầy cô phụ trách khóa học tại phòng chát đó!'),
+            'Phòng chat chia sẻ các khóa học và giúp đỡ nhau trong học tập cùng mọi người và các thầy cô phụ trách khóa học tại phòng chat đó!'),
       ),
     );
   }

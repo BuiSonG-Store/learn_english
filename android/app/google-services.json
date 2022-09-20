@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "907132626394",
+    "project_id": "chatlearne",
+    "storage_bucket": "chatlearne.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907132626394:android:0e3d821c8e51f2e4024ce3",
+        "android_client_info": {
+          "package_name": "com.example.learn_english"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907132626394-sjadb2pa0ndlejn4u6oekjrvnk6micnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJqQqWvYvJAy6H4qjsAiDMQblFB3aw9DM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907132626394-sjadb2pa0ndlejn4u6oekjrvnk6micnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

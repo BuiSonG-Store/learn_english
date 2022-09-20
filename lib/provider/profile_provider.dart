@@ -8,7 +8,7 @@ import 'package:learn_english/injector/injector_container.dart';
 class ProfileProvider extends ChangeNotifier {
   AppClient appClient = injector<AppClient>();
 
-  Future onUpdateUser(context, String userName) async {
+  Future onUpdateUser(context, String userName, String password) async {
     try {
       String email = injector<LocalApp>().getStringStorage(StringConst.email) ?? '';
       String password = injector<LocalApp>().getStringStorage(StringConst.passwordLogin) ?? '';

@@ -86,7 +86,7 @@ class Item extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         width: MediaQuery.of(context).size.width,
-        height: 110,
+        height: 100,
         decoration: BoxDecoration(
           color: Theme.of(context).shadowColor,
           borderRadius: BorderRadius.circular(8),
@@ -101,7 +101,6 @@ class Item extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('${model?.id}'),
             Container(
               padding: const EdgeInsets.all(8),
               width: double.infinity,

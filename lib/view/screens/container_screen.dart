@@ -7,10 +7,7 @@ import 'package:learn_english/view/screens/chat/chat_main.dart';
 import 'package:learn_english/view/screens/home/home_screen.dart';
 import 'package:learn_english/view/screens/personal/personal_screen.dart';
 import 'package:learn_english/view/screens/rank/rank_screen.dart';
-import 'package:learn_english/view/widgets/keep_alive_widget.dart';
 import 'package:provider/provider.dart';
-
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ContainerScreen extends StatefulWidget {
   const ContainerScreen({Key? key}) : super(key: key);
@@ -22,7 +19,7 @@ class ContainerScreen extends StatefulWidget {
 class _ContainerScreenState extends State<ContainerScreen> {
   int _currentIndex = 0;
 
-  List pages = const  [
+  List pages = const [
     HomeScreen(),
     RankScreen(),
     ChatMain(),
@@ -32,15 +29,6 @@ class _ContainerScreenState extends State<ContainerScreen> {
   @override
   void initState() {
     super.initState();
-
-    // IO.Socket socket = IO.io('https://english-app-ss4.herokuapp.com/api/v1/ws');
-    // socket.onConnect((_) {
-    //   print('connect');
-    //   socket.emit('msg', 'test');
-    // });
-    // socket.on('/topic/publicChatRoom', (data) => print(data));
-    // socket.onDisconnect((_) => print('disconnect'));
-    // socket.on('fromServer', (_) => print(_));
   }
 
   @override
@@ -53,8 +41,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
         itemCornerRadius: 24,
         curve: Curves.easeIn,
         onItemSelected: (index) {
-          if (Provider.of<ThemeProviderGame>(context, listen: false)
-              .isSoundOn) {
+          if (Provider.of<ThemeProviderGame>(context, listen: false).isSoundOn) {
             SoundController.playSoundPress();
           }
           setState(() => _currentIndex = index);

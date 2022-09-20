@@ -49,30 +49,22 @@ class _ChatScreenState extends State<ChatScreen> {
             const MessagesStream(),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: CustomTextField(
-                      controller: messageTextController,
-                      onChange: (value) {
-                        messageText = value;
-                      },
-                    ),
-                  ),
-                  TextButton(
+              child: CustomTextField(
+                controller: messageTextController,
+                onChange: (value) {
+                  messageText = value;
+                },
+                suffixIcon: IconButton(
                     onPressed: () {
-                      messageTextController.clear();
-                      _firestore
-                          .collection('messages')
-                          .add({'text': messageText, 'sender': userNameUser, 'timeSend': DateTime.now()});
+                      if (messageText != '') {
+                        messageTextController.clear();
+                        _firestore
+                            .collection('messages')
+                            .add({'text': messageText, 'sender': userNameUser, 'timeSend': DateTime.now()});
+                        messageText = '';
+                      }
                     },
-                    child: Text(
-                      'Send',
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                ],
+                    icon: const Icon(Icons.send)),
               ),
             ),
           ],
