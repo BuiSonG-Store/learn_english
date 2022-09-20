@@ -7,7 +7,6 @@ import 'package:learn_english/common/utils/validate_util.dart';
 import 'package:learn_english/injector/injector_container.dart';
 import 'package:learn_english/provider/profile_provider.dart';
 import 'package:learn_english/router/routing-name.dart';
-import 'package:learn_english/view/screens/edit_profile/widgets/edit_profile_egroup_level.dart';
 import 'package:learn_english/view/widgets/custom_button_text.dart';
 import 'package:learn_english/view/widgets/custom_text_field.dart';
 
@@ -25,45 +24,21 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   TextEditingController emailController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
-  String? _eGroupLevel;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     userNameController.text = injector<LocalApp>().getStorage(StringConst.userName);
-    _eGroupLevel = injector<LocalApp>().getStorage(StringConst.level);
     emailController.text = injector<LocalApp>().getStorage(StringConst.email);
     super.initState();
-  }
-
-  void _onSelectEGroup() {
-    CommonUtil.showCustomBottomSheet(
-        context: context,
-        height: 350,
-        child: EGroupLevel(
-          onTap: (String level) {
-            setState(() {
-              _eGroupLevel = level;
-            });
-          },
-        ));
   }
 
   void _onUpdate() async {
     CommonUtil.dismissKeyBoard(context);
     if (!CommonUtil.validateAndSave(_formKey)) return;
-    if (_eGroupLevel == null) {
-      CommonUtil.showSnackBar(
-        context,
-        color: Colors.grey,
-        title: 'Vui lòng chọn EGroup Level',
-      );
-      return;
-    }
     await ProfileProvider().onUpdateUser(
       context,
       userNameController.text,
-      _eGroupLevel!,
     );
     GlobalAppCache.instance.setForRegister(false);
     await Navigator.pushNamed(context, RoutingNameConstant.confirmEmail);
@@ -114,36 +89,6 @@ class _EditProfileState extends State<EditProfile> {
                       hintText: "User Name",
                       onValidate: ValidateUtil.validEmpty,
                       textInputAction: TextInputAction.done,
-                    ),
-                    InkWell(
-                      onTap: _onSelectEGroup,
-                      child: Container(
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(top: 16),
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.grey)),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      TextSpan(text: 'EGroup Level: ', style: Theme.of(context).textTheme.titleSmall),
-                                      TextSpan(
-                                          text: _eGroupLevel != null ? '$_eGroupLevel' : '',
-                                          style: Theme.of(context).textTheme.titleSmall),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Icon(Icons.arrow_drop_down),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),

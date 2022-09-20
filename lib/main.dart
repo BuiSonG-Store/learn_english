@@ -21,10 +21,12 @@ import 'package:learn_english/view/widgets/loading/loading_container.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   Box box = await Hive.openBox('learningBox');
@@ -44,8 +46,7 @@ void main() async {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => CreateAccountProvider()),
-          ChangeNotifierProvider(
-              create: (context) => ThemeProvider(isDarkTheme)),
+          ChangeNotifierProvider(create: (context) => ThemeProvider(isDarkTheme)),
           ChangeNotifierProvider(create: (context) => LogInProvider()),
           ChangeNotifierProvider(create: (context) => HomeProvider()),
           ChangeNotifierProvider(create: (context) => RankProvider()),

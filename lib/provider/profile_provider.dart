@@ -8,24 +8,14 @@ import 'package:learn_english/injector/injector_container.dart';
 class ProfileProvider extends ChangeNotifier {
   AppClient appClient = injector<AppClient>();
 
-  Future onUpdateUser(context, String userName, String level) async {
+  Future onUpdateUser(context, String userName) async {
     try {
-      String email =
-          injector<LocalApp>().getStringStorage(StringConst.email) ?? '';
-      String password =
-          injector<LocalApp>().getStringStorage(StringConst.passwordLogin) ??
-              '';
-      await appClient.put('users?email=$email', body: {
-        "username": userName,
-        "email": email,
-        "password": password,
-        "level": level
-      });
-      // CommonUtil.showSnackBar(context,
-      //     title: 'Update thông tin thành công', color: Colors.green);
+      String email = injector<LocalApp>().getStringStorage(StringConst.email) ?? '';
+      String password = injector<LocalApp>().getStringStorage(StringConst.passwordLogin) ?? '';
+      await appClient.put('users?email=$email', body: {"username": userName, "email": email, "password": password});
+      CommonUtil.showSnackBar(context, title: 'Update thông tin thành công', color: Colors.green);
     } catch (e) {
-      CommonUtil.showSnackBar(context,
-          title: 'Đã xảy ra lỗi', color: Colors.orange);
+      CommonUtil.showSnackBar(context, title: 'Đã xảy ra lỗi', color: Colors.orange);
     }
   }
 }

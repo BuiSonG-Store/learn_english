@@ -32,8 +32,8 @@ class _RoomChatWidgetState extends State<RoomChatWidget> {
         children: [
           ListTile(
             leading: Image.asset('assets/icons/logo.png'),
-            title: const Text('The Enchanted Nightingale'),
-            subtitle: const Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+            title: const Text('Phòng chat cộng đồng'),
+            subtitle: const Text('Phòng chat dành cho tất cả mọi người sử dụng app.'),
           ),
           widget.isJoin
               ? TextButton(

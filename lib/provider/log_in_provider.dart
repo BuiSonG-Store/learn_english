@@ -12,9 +12,12 @@ import 'package:learn_english/view/widgets/loading/loading_process_builder.dart'
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
+import '../firebase/auth_service_fb.dart';
+
 class LogInProvider extends ChangeNotifier {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final AuthServiceFB _authServiceFB = AuthServiceFB();
 
   final formKey = GlobalKey<FormState>();
   AppClient appClient = injector<AppClient>();
@@ -36,31 +39,20 @@ class LogInProvider extends ChangeNotifier {
       var model = LoginModel.fromJson(data);
 
       if (model.id != null) {
-        /// lưu token.dart và refresh token.dart
         LoadingProcessBuilder.hideProgressDialog(_);
-        injector<LocalApp>().saveStringStorage(
-            StringConst.passwordLogin, passwordController.text);
-        injector<LocalApp>().saveStringStorage(
-            StringConst.keySaveToken, model.accessToken ?? "");
-        injector<LocalApp>().saveStringStorage(
-            StringConst.keySaveReFreshToken, model.refreshToken ?? "");
-        injector<LocalApp>()
-            .saveStringStorage(StringConst.userName, model.username ?? "");
-        injector<LocalApp>()
-            .saveStringStorage(StringConst.level, model.level ?? "");
-        injector<LocalApp>()
-            .saveStringStorage(StringConst.email, model.email ?? "");
-        injector<LocalApp>()
-            .saveStringStorage(StringConst.id, model.id.toString());
+        injector<LocalApp>().saveStringStorage(StringConst.passwordLogin, passwordController.text);
+        injector<LocalApp>().saveStringStorage(StringConst.keySaveToken, model.accessToken ?? "");
+        injector<LocalApp>().saveStringStorage(StringConst.keySaveReFreshToken, model.refreshToken ?? "");
+        injector<LocalApp>().saveStringStorage(StringConst.userName, model.username ?? "");
+        injector<LocalApp>().saveStringStorage(StringConst.level, model.level ?? "");
+        injector<LocalApp>().saveStringStorage(StringConst.email, model.email ?? "");
+        injector<LocalApp>().saveStringStorage(StringConst.id, model.id.toString());
         injector<LocalApp>().saveStringStorage(
           StringConst.groupIds,
           jsonEncode(model.groupId ?? []),
         );
-
-        /// đăng nhập thành công => navigate đến home
-
         CommonUtil.showSnackBar(_, title: "Log in success!");
-
+        await _authServiceFB.signInAnon();
         Navigator.pushReplacementNamed(_, RoutingNameConstant.homeContainer);
       } else {
         LoadingProcessBuilder.hideProgressDialog(_);
@@ -78,8 +70,7 @@ class LogInProvider extends ChangeNotifier {
       injector<LocalApp>().removeStorage(StringConst.userName);
       injector<LocalApp>().removeStorage(StringConst.email);
       Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushNamedAndRemoveUntil(context,
-            RoutingNameConstant.logInScreen, (Route<dynamic> route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, RoutingNameConstant.logInScreen, (Route<dynamic> route) => false);
       });
       LoadingProcessBuilder.hideProgressDialog(context);
       CommonUtil.showSnackBar(context, title: "Log out success!");
@@ -87,8 +78,7 @@ class LogInProvider extends ChangeNotifier {
   }
 }
 
-Future<Map<String, dynamic>> login(String endPoint, context,
-    {dynamic body, bool formData = false}) async {
+Future<Map<String, dynamic>> login(String endPoint, context, {dynamic body, bool formData = false}) async {
   var url = Uri.parse('${Configurations.host}$endPoint');
   Response? response;
   Map<String, dynamic> data = {};
