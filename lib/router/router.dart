@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learn_english/router/routing-name.dart';
 import 'package:learn_english/view/play_game/features/choose_game/choose_game.dart';
-import 'package:learn_english/view/screens/chat/chat_detail/chat_detail_screen.dart';
 import 'package:learn_english/view/screens/chat/chat_screen/chat_screen.dart';
 import 'package:learn_english/view/screens/create_account/confitm_email.dart';
 import 'package:learn_english/view/screens/create_account/create_account.dart';
@@ -23,46 +22,25 @@ import '../view/play_game/features/slide_party/features/single_mode/screens/sing
 
 abstract class RoutesConstant {
   static final routes = <String, WidgetBuilder>{
-    RoutingNameConstant.homeContainer: (BuildContext context) =>
-        const ContainerScreen(),
-    RoutingNameConstant.introScreen: (BuildContext context) =>
-        const IntroScreen(),
-    RoutingNameConstant.letYouLogInScreen: (BuildContext context) =>
-        const LetYouLogInScreen(),
-    RoutingNameConstant.createAccount: (BuildContext context) =>
-        const CreateAccount(),
-    RoutingNameConstant.splashScreen: (BuildContext context) =>
-        const SplashScreen(),
-    RoutingNameConstant.logInScreen: (BuildContext context) =>
-        const LogInScreen(),
-    RoutingNameConstant.confirmEmail: (BuildContext context) =>
-        const ConfirmEmail(),
-    RoutingNameConstant.editProfile: (BuildContext context) =>
-        const EditProfile(),
-    RoutingNameConstant.DoneQuestion: (BuildContext context) =>
-        const DoneQuestion(),
-    RoutingNameConstant.chatDetailScreen: (BuildContext context) =>
-        const ChatDetailScreen(),
-    RoutingNameConstant.chatScreen: (BuildContext context) =>
-        const ChatScreen(),
-    RoutingNameConstant.chooseGame: (BuildContext context) =>
-        const ChooseGame(),
-    RoutingNameConstant.startChooseGame: (BuildContext context) =>
-        const StartChooseGame(),
-    RoutingNameConstant.homePageSlideParty: (BuildContext context) =>
-        const HomePageSlideParty(),
+    RoutingNameConstant.homeContainer: (BuildContext context) => const ContainerScreen(),
+    RoutingNameConstant.introScreen: (BuildContext context) => const IntroScreen(),
+    RoutingNameConstant.letYouLogInScreen: (BuildContext context) => const LetYouLogInScreen(),
+    RoutingNameConstant.createAccount: (BuildContext context) => const CreateAccount(),
+    RoutingNameConstant.splashScreen: (BuildContext context) => const SplashScreen(),
+    RoutingNameConstant.logInScreen: (BuildContext context) => const LogInScreen(),
+    RoutingNameConstant.confirmEmail: (BuildContext context) => const ConfirmEmail(),
+    RoutingNameConstant.editProfile: (BuildContext context) => const EditProfile(),
+    RoutingNameConstant.DoneQuestion: (BuildContext context) => const DoneQuestion(),
+    RoutingNameConstant.chooseGame: (BuildContext context) => const ChooseGame(),
+    RoutingNameConstant.startChooseGame: (BuildContext context) => const StartChooseGame(),
+    RoutingNameConstant.homePageSlideParty: (BuildContext context) => const HomePageSlideParty(),
+    RoutingNameConstant.chatScreen: (BuildContext context) => ChatScreen(),
     RoutingNameConstant.done: (BuildContext context) => const DoneQuestion(),
     RoutingNameConstant.mMode: (BuildContext context) => ProviderScope(
-            overrides: [
-              playboardControllerProvider
-                  .overrideWithProvider(multipleModeControllerProvider)
-            ],
-            child: const MultipleModePage()),
+        overrides: [playboardControllerProvider.overrideWithProvider(multipleModeControllerProvider)],
+        child: const MultipleModePage()),
     RoutingNameConstant.sMode: (BuildContext context) => ProviderScope(
-          overrides: [
-            playboardControllerProvider
-                .overrideWithProvider(singleModeControllerProvider)
-          ],
+          overrides: [playboardControllerProvider.overrideWithProvider(singleModeControllerProvider)],
           child: const SingleModePage(),
         ),
   };

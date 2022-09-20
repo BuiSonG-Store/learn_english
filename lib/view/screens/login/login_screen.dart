@@ -16,7 +16,6 @@ class LogInScreen extends StatefulWidget {
 
 class _LogInScreenState extends State<LogInScreen> {
   bool obscureText = true;
-
   @override
   void initState() {
     super.initState();
