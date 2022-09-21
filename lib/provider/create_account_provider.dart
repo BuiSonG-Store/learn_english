@@ -59,25 +59,19 @@ Future<Map<String, dynamic>> register(String endPoint, _,
         body: json.encode(body));
     if (response.statusCode == 200) {
       LoadingProcessBuilder.hideProgressDialog(_);
-      CommonUtil.showSnackBar(_,
-          title: "Vui lòng xác nhận mã đã được gửi về gmail!",
-          backgroundColor: Colors.yellow);
-      Future.delayed(const Duration(seconds: 1), () {
+      CommonUtil.showSnackBar(_, title: "Vui lòng xác nhận mã đã được gửi về gmail!", backgroundColor: Colors.yellow);
+      Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(_, RoutingNameConstant.confirmEmail);
       });
       SharedPreferencesService.saveData(StringConst.email, email);
     }
     if (response.statusCode == 400) {
       LoadingProcessBuilder.hideProgressDialog(_);
-      CommonUtil.showSnackBar(_,
-          title: "Email đã được đăng ký trước đó!",
-          backgroundColor: Colors.yellow);
+      CommonUtil.showSnackBar(_, title: "Email đã được đăng ký trước đó!", backgroundColor: Colors.yellow);
     }
     if (response.statusCode == 500) {
       LoadingProcessBuilder.hideProgressDialog(_);
-      CommonUtil.showSnackBar(_,
-          title: "Email đã được đăng ký trước đó!",
-          backgroundColor: Colors.yellow);
+      CommonUtil.showSnackBar(_, title: "Email đã được đăng ký trước đó!", backgroundColor: Colors.yellow);
     }
   } else {
     response = await http.post(url, body: body);
@@ -99,12 +93,10 @@ Future<Map<String, dynamic>> confirmEmail(String code, context) async {
     if (response.statusCode == 200) {
       LoadingProcessBuilder.hideProgressDialog(context);
       CommonUtil.showSnackBar(context,
-          title: forRegister
-              ? "Xác nhận thành công, bạn có thể đăng nhập!"
-              : 'Cập nhật thông tin thành công!',
+          title: forRegister ? "Xác nhận thành công, bạn có thể đăng nhập!" : 'Cập nhật thông tin thành công!',
           backgroundColor: Colors.green);
       injector<LocalApp>().removeStorage(StringConst.keySaveToken);
-      Future.delayed(const Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(
           context,
           RoutingNameConstant.logInScreen,
@@ -113,9 +105,7 @@ Future<Map<String, dynamic>> confirmEmail(String code, context) async {
     }
     if (response.statusCode == 500) {
       LoadingProcessBuilder.hideProgressDialog(context);
-      CommonUtil.showSnackBar(context,
-          title: "Mã xác nhận sai, vui lòng thử lại!",
-          backgroundColor: Colors.yellow);
+      CommonUtil.showSnackBar(context, title: "Mã xác nhận sai, vui lòng thử lại!", backgroundColor: Colors.yellow);
     }
     return data;
   } catch (_) {

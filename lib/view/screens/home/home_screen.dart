@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:learn_english/common/utils/validate_util.dart';
@@ -7,6 +8,10 @@ import 'package:learn_english/view/screens/home/widgets/appbar_home.dart';
 import 'package:learn_english/view/screens/home/widgets/course.dart';
 import 'package:learn_english/view/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
+
+import '../../../common/constants/string_const.dart';
+import '../../../common/local/local_app.dart';
+import '../../../injector/injector_container.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -31,18 +36,67 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  List<dynamic> groupId = jsonDecode(injector<LocalApp>().getStringStorage(StringConst.groupIds) ?? '');
+
   @override
   Widget build(BuildContext context) {
     if (isFirst) {
       Provider.of<HomeProvider>(context).getDataHome();
       isFirst = false;
     }
+
     return Consumer<HomeProvider>(builder: (context, provider, widget) {
       return Scaffold(
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const SafeArea(child: AppbarHome()),
+              SafeArea(
+                child: AppbarHome(
+                  onTapLevel: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Đã hiểu'),
+                          )
+                        ],
+                        title: Row(
+                          children: [
+                            Image.asset(
+                              'assets/icons/level-up.png',
+                              width: 30,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                'Level bài tập bạn có:',
+                                style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 18),
+                              ),
+                            ),
+                          ],
+                        ),
+                        content: SizedBox(
+                          height: MediaQuery.of(context).size.height / 4,
+                          child: GridView.builder(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              childAspectRatio: 0.9,
+                            ),
+                            itemCount: groupId.length,
+                            itemBuilder: (context, index) {
+                              return imageLevel(groupId[index]);
+                            },
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
               const SizedBox(height: 8),
               Form(
                 key: provider.formKey,
@@ -81,5 +135,33 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     });
+  }
+
+  Widget imageLevel(int level) {
+    if (level == 1) {
+      return Image.asset(
+        'assets/icons/first_rank.png',
+        width: 30,
+      );
+    } else if (level == 2) {
+      return Image.asset(
+        'assets/icons/second_rank.png',
+        width: 30,
+      );
+    } else if (level == 3) {
+      return Image.asset(
+        'assets/icons/third-rank.png',
+        width: 30,
+      );
+    }
+    return Container(
+      alignment: Alignment.center,
+      width: 30,
+      height: double.infinity,
+      child: Text(
+        '${level}.',
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
+    );
   }
 }

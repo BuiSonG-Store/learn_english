@@ -69,7 +69,7 @@ class LogInProvider extends ChangeNotifier {
       injector<LocalApp>().removeStorage(StringConst.keySaveReFreshToken);
       injector<LocalApp>().removeStorage(StringConst.userName);
       injector<LocalApp>().removeStorage(StringConst.email);
-      Future.delayed(const Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushNamedAndRemoveUntil(context, RoutingNameConstant.logInScreen, (Route<dynamic> route) => false);
       });
       LoadingProcessBuilder.hideProgressDialog(context);
