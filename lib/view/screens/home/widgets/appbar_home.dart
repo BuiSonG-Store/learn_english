@@ -7,7 +7,8 @@ import '../../../../common/local/local_app.dart';
 import '../../../../injector/injector_container.dart';
 
 class AppbarHome extends StatefulWidget {
-  const AppbarHome({Key? key}) : super(key: key);
+  final Function onTapLevel;
+  const AppbarHome({Key? key, required this.onTapLevel}) : super(key: key);
 
   @override
   State<AppbarHome> createState() => _AppbarHomeState();
@@ -53,6 +54,14 @@ class _AppbarHomeState extends State<AppbarHome> {
               ],
             ),
           ),
+          IconButton(
+            onPressed: () {
+              widget.onTapLevel();
+            },
+            icon: Image.asset(
+              'assets/icons/level-up.png',
+            ),
+          )
         ],
       ),
     );
