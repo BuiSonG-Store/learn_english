@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:learn_english/model/details_course.dart';
 import 'package:learn_english/provider/course_details_provider.dart';
@@ -37,7 +39,7 @@ class _CourseScreenState extends State<CourseScreen> {
             child: Column(
               children: [
                 CustomAppbar(
-                  title: widget.title,
+                  title: utf8.decode((widget.title).runes.toList()),
                   haveIcon1: false,
                   haveIcon2: false,
                   haveIconPop: true,
@@ -86,7 +88,7 @@ class Item extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         width: MediaQuery.of(context).size.width,
-        height: 100,
+        height: model?.description != '' ? 100 : 70,
         decoration: BoxDecoration(
           color: Theme.of(context).shadowColor,
           borderRadius: BorderRadius.circular(8),
@@ -114,7 +116,7 @@ class Item extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(8)),
               child: Text(
-                model?.name ?? '',
+                utf8.decode((model?.name ?? '').runes.toList()),
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 2,
               ),
@@ -122,7 +124,7 @@ class Item extends StatelessWidget {
             const SizedBox(height: 6),
             Expanded(
               child: Text(
-                model?.description ?? '',
+                utf8.decode((model?.description ?? '').runes.toList()),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyMedium,

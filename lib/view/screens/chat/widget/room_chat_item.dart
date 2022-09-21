@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:learn_english/router/routing-name.dart';
+import 'package:learn_english/view/screens/momo/momo_screen.dart';
 import 'package:learn_english/view/screens/webview/webview_screen.dart';
 import 'package:learn_english/view/widgets/custom_button_text.dart';
 
 class RoomChatWidget extends StatefulWidget {
+  final String title;
+  final String subtitle;
+  final String image;
   final bool isJoin;
-  const RoomChatWidget({Key? key, required this.isJoin}) : super(key: key);
+  final Function onNavigator;
+  const RoomChatWidget({
+    Key? key,
+    required this.isJoin,
+    required this.title,
+    required this.subtitle,
+    required this.onNavigator,
+    required this.image,
+  }) : super(key: key);
 
   @override
   State<RoomChatWidget> createState() => _RoomChatWidgetState();
@@ -31,31 +42,18 @@ class _RoomChatWidgetState extends State<RoomChatWidget> {
       child: Column(
         children: [
           ListTile(
-            leading: Image.asset('assets/icons/logo.png'),
-            title: const Text('Phòng chat cộng đồng'),
-            subtitle: const Text('Phòng chat dành cho tất cả mọi người sử dụng app.'),
+            leading: Image.asset(widget.image),
+            title: Text(widget.title),
+            subtitle: Text(widget.subtitle),
           ),
           widget.isJoin
               ? TextButton(
                   child: const Text('Vào phòng chat!'),
                   onPressed: () {
-                    Navigator.pushNamed(context, RoutingNameConstant.chatScreen);
+                    widget.onNavigator();
                   },
                 )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    TextButton(child: const Text('Tham gia ngay'), onPressed: () => _joinNow()),
-                    const SizedBox(width: 8),
-                    TextButton(
-                      child: const Text('Xem chi tiết'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, RoutingNameConstant.chatDetailScreen);
-                      },
-                    ),
-                    const SizedBox(width: 8),
-                  ],
-                ),
+              : TextButton(child: const Text('Tham gia ngay'), onPressed: () => _joinNow()),
         ],
       ),
     );
@@ -78,7 +76,7 @@ class _RoomChatWidgetState extends State<RoomChatWidget> {
               ),
             ],
           ),
-          height: MediaQuery.of(context).size.height / 2,
+          height: MediaQuery.of(context).size.height * 0.5,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -86,19 +84,30 @@ class _RoomChatWidgetState extends State<RoomChatWidget> {
                 onPressed: () => Navigator.pop(context),
                 icon: const Icon(Icons.close),
               ),
-              Padding(
+              Container(
                 padding: const EdgeInsets.all(12.0),
+                height: MediaQuery.of(context).size.height * 0.4,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const Text(
+                      'Tham gia phòng chat này đồng nghĩa với việc bạn nâng cấp level học và các đặc quyền riêng của level tương đương!',
+                    ),
+                    Image.asset(
+                      'assets/icons/bubble-chat.gif',
+                      height: MediaQuery.of(context).size.height * 0.2,
+                    ),
+                    const Spacer(),
                     CustomButtonText(
                       onTab: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => WebViewPage(url: 'https://dacsanhht.com/')),
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => const MoMoScreen(),
+                          ),
                         );
                       },
-                      text: 'Thanh toán',
+                      text: 'Tham gia',
                     )
                   ],
                 ),

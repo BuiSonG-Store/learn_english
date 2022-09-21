@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:learn_english/provider/exercise_provider.dart';
@@ -48,7 +49,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         body: Column(
           children: [
             CustomAppbar(
-              title: widget.title ?? "",
+              title: utf8.decode((widget.title ?? "").runes.toList()),
               haveIcon1: false,
               haveIcon2: false,
               haveIconPop: true,
@@ -95,7 +96,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
       children: [
         const SizedBox(height: 16),
         Text(
-          "Question: ${questions?.question}",
+          "Question: ${utf8.decode((questions?.question ?? '').runes.toList())}",
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 40),
@@ -208,7 +209,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
               SoundController.playSoundFalse();
             }
             return Container(
-              height: MediaQuery.of(context).size.height / 3,
+              height: MediaQuery.of(context).size.height / 5,
               color: Colors.transparent,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -221,7 +222,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        "Sai rồi! \nĐáp án đúng là: $dapAnDung",
+                        "Sai rồi! Hãy kiểm tra lại và làm lại sau nhé!",
                         style: const TextStyle(color: Colors.red, fontSize: 20, fontStyle: FontStyle.italic),
                       ),
                     ),

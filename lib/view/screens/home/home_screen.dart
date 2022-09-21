@@ -8,10 +8,12 @@ import 'package:learn_english/view/screens/home/widgets/appbar_home.dart';
 import 'package:learn_english/view/screens/home/widgets/course.dart';
 import 'package:learn_english/view/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../common/constants/string_const.dart';
 import '../../../common/local/local_app.dart';
 import '../../../injector/injector_container.dart';
+import '../webview/webview_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -62,6 +64,19 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.pop(context);
                             },
                             child: const Text('Đã hiểu'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WebViewPage(
+                                    url: 'https://www.facebook.com/',
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const Text('Nâng cấp'),
                           )
                         ],
                         title: Row(
@@ -80,16 +95,33 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         content: SizedBox(
-                          height: MediaQuery.of(context).size.height / 4,
-                          child: GridView.builder(
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              childAspectRatio: 0.9,
-                            ),
-                            itemCount: groupId.length,
-                            itemBuilder: (context, index) {
-                              return imageLevel(groupId[index]);
-                            },
+                          height: 200,
+                          child: Column(
+                            children: [
+                              groupId.length < 1
+                                  ? Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Image.asset('assets/icons/logo.png', width: 50),
+                                    )
+                                  : Expanded(
+                                      child: GridView.builder(
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          childAspectRatio: 0.8,
+                                        ),
+                                        itemCount: groupId.length,
+                                        itemBuilder: (context, index) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(right: 12),
+                                            child: imageLevel(groupId[index]),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                              const Text(
+                                'Nâng cấp level sẽ cung cấp cho bạn thêm bài tập, gỡ bỏ quảng cáo và có thêm phòng chat hỗ trợ riêng cho level đó!',
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -121,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 0.9,
+                  childAspectRatio: 1,
                 ),
                 scrollDirection: Axis.vertical,
                 itemCount: provider.courseModel?.content?.length ?? 0,
@@ -139,27 +171,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget imageLevel(int level) {
     if (level == 1) {
-      return Image.asset(
-        'assets/icons/first_rank.png',
-        width: 30,
-      );
+      return Image.asset('assets/icons/first_rank.png', width: 30);
     } else if (level == 2) {
-      return Image.asset(
-        'assets/icons/second_rank.png',
-        width: 30,
-      );
+      return Image.asset('assets/icons/second_rank.png', width: 30);
     } else if (level == 3) {
-      return Image.asset(
-        'assets/icons/third-rank.png',
-        width: 30,
-      );
+      return Image.asset('assets/icons/third-rank.png', width: 30);
     }
     return Container(
       alignment: Alignment.center,
       width: 30,
       height: double.infinity,
       child: Text(
-        '${level}.',
+        '$level',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
     );

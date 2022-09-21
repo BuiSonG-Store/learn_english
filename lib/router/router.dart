@@ -34,7 +34,6 @@ abstract class RoutesConstant {
     RoutingNameConstant.chooseGame: (BuildContext context) => const ChooseGame(),
     RoutingNameConstant.startChooseGame: (BuildContext context) => const StartChooseGame(),
     RoutingNameConstant.homePageSlideParty: (BuildContext context) => const HomePageSlideParty(),
-    RoutingNameConstant.chatScreen: (BuildContext context) => ChatScreen(),
     RoutingNameConstant.done: (BuildContext context) => const DoneQuestion(),
     RoutingNameConstant.mMode: (BuildContext context) => ProviderScope(
         overrides: [playboardControllerProvider.overrideWithProvider(multipleModeControllerProvider)],
