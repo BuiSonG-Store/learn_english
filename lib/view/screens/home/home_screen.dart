@@ -143,7 +143,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     textInputAction: TextInputAction.search,
                     onValidate: ValidateUtil.validEmpty,
                     suffixIcon: IconButton(
-                      onPressed: () => provider.search(provider.controller.text),
+                      onPressed: () =>
+                          provider.search(provider.controller.text),
                       icon: const Icon(Icons.search),
                     ),
                   ),

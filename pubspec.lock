@@ -134,20 +134,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
-  eventify:
-    dependency: transitive
-    description:
-      name: eventify
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
-  external_app_launcher:
-    dependency: transitive
-    description:
-      name: external_app_launcher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -462,22 +448,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  momo_vn:
-    dependency: transitive
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "1570980cdbf36ca6995f0a6ecffaa121dd45589b"
-      url: "https://github.com/lamdev99/momo.vn.git"
-    source: git
-    version: "2.0.2"
-  momo_vn_example:
-    dependency: "direct main"
-    description:
-      path: "../momo_vn_example"
-      relative: true
-    source: path
-    version: "0.0.1"
   nested:
     dependency: transitive
     description:

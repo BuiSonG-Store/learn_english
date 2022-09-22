@@ -12,10 +12,14 @@ class RankScreen extends StatefulWidget {
 }
 
 class _RankScreenState extends State<RankScreen> {
+  bool _runFirst = true;
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<RankProvider>(context).getDataRank();
-
+    if(_runFirst){
+      _runFirst = false;
+      Provider.of<RankProvider>(context).getDataRank();
+    }
     return Consumer<RankProvider>(builder: (context, provider, widget) {
       return Scaffold(
           body: Column(
