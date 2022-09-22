@@ -61,7 +61,7 @@ class Course extends StatelessWidget {
                       )
                     : Image.network(
                         model!.image!,
-                        width: 15,
+                        width: 30,
                       )
               ],
             ),
