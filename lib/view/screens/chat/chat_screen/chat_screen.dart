@@ -10,6 +10,9 @@ import '../../../../common/constants/string_const.dart';
 import '../../../../common/local/local_app.dart';
 
 class ChatScreen extends StatefulWidget {
+  final String idRoom;
+  const ChatScreen({Key? key, required this.idRoom}) : super(key: key);
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -46,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const CustomAppbar(title: 'Chat', haveIcon1: false, haveIcon2: false, haveIconPop: true),
-            const MessagesStream(),
+            MessagesStream(idRoom: widget.idRoom),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
               child: CustomTextField(
@@ -59,7 +62,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       if (messageText != '') {
                         messageTextController.clear();
                         _firestore
-                            .collection('messages')
+                            .collection(widget.idRoom)
                             .add({'text': messageText, 'sender': userNameUser, 'timeSend': DateTime.now()});
                         messageText = '';
                       }
@@ -75,12 +78,13 @@ class _ChatScreenState extends State<ChatScreen> {
 }
 
 class MessagesStream extends StatelessWidget {
-  const MessagesStream({Key? key}) : super(key: key);
+  final String idRoom;
+  const MessagesStream({Key? key, required this.idRoom}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').orderBy("timeSend", descending: true).snapshots(),
+      stream: _firestore.collection(idRoom).orderBy("timeSend", descending: true).snapshots(),
       builder: (context, snapshot) {
         List<MessageBubble> messageBubbles = [];
 

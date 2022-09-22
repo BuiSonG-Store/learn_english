@@ -36,6 +36,9 @@ class _WebViewPageState extends State<WebViewPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: true,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Padding(
           padding: const EdgeInsets.only(left: 15.0),
           child: SvgPicture.asset(
@@ -51,13 +54,19 @@ class _WebViewPageState extends State<WebViewPage> {
               onPressed: () {
                 _controller.reload();
               },
-              icon: const Icon(Icons.refresh),
+              icon: const Icon(
+                Icons.refresh,
+                color: Colors.black,
+              ),
             ),
           IconButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: const Icon(Icons.close_rounded),
+            icon: const Icon(
+              Icons.close_rounded,
+              color: Colors.black,
+            ),
           ),
         ],
       ),

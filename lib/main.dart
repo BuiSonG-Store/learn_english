@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:learn_english/app.dart';
 import 'package:learn_english/common/global_app_cache/global_app_cache.dart';
 import 'package:learn_english/provider/course_details_provider.dart';
 import 'package:learn_english/provider/create_account_provider.dart';
@@ -53,9 +54,7 @@ void main() async {
           ChangeNotifierProvider(create: (context) => ExerciseProvider()),
           ChangeNotifierProvider(create: (context) => ThemeProviderGame()),
           ChangeNotifierProvider(create: (context) => CourseDetailsProvider()),
-          ChangeNotifierProvider(
-            create: (context) => LoadingProvider.instance,
-          ),
+          ChangeNotifierProvider(create: (context) => LoadingProvider.instance),
         ],
         child: const MyApp(),
       ),
@@ -66,27 +65,5 @@ void main() async {
 Future initInjector() async {
   if (GlobalAppCache.instance.box != null) {
     await di.init(GlobalAppCache.instance.box!);
-  }
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, theme, _) => MaterialApp(
-          theme: theme.getTheme(),
-          navigatorKey: NavigationService.instance.navigatorKey,
-          debugShowCheckedModeBanner: false,
-          title: 'English',
-          initialRoute: RoutingNameConstant.splashScreen,
-          routes: RoutesConstant.routes,
-          builder: (context, widget) {
-            return LoadingContainer(
-              child: widget ?? const SizedBox(),
-            );
-          }),
-    );
   }
 }

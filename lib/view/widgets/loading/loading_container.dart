@@ -15,14 +15,14 @@ class LoadingContainer extends StatelessWidget {
         children: <Widget>[
           child,
           Consumer<LoadingProvider>(
-            builder: (context, cart, child){
+            builder: (context, cart, child) {
               return Visibility(
                 visible: LoadingProvider.instance.loading,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.2),
                   ),
-                  child: SizedBox(
+                  child: const SizedBox(
                     width: double.infinity,
                     height: double.infinity,
                     child: Center(
@@ -35,7 +35,6 @@ class LoadingContainer extends StatelessWidget {
               );
             },
           ),
-
         ],
       ),
     );
@@ -50,10 +49,9 @@ class LoadingContainer extends StatelessWidget {
           child: Container(
             width: 30,
             height: 30,
-            padding: EdgeInsets.all(2),
-            decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.8), shape: BoxShape.circle),
-            child: Icon(
+            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(color: Colors.black.withOpacity(0.8), shape: BoxShape.circle),
+            child: const Icon(
               Icons.close,
               color: Colors.white,
             ),

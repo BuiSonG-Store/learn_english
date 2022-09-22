@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:learn_english/model/exercise_model.dart';
 
@@ -21,7 +23,7 @@ class AnswerItem extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
               child: Text(
-            '${answers.answerValue}',
+            utf8.decode((answers.answerValue ?? '').runes.toList()),
             style: TextStyle(
                 color: (answers.isSelected ?? false) ? Colors.white : Colors.black87, fontWeight: FontWeight.w400),
             maxLines: 2,

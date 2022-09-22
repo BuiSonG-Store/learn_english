@@ -5,8 +5,6 @@ import 'package:learn_english/common/local/local_app.dart';
 import 'package:learn_english/common/network/client.dart';
 import 'package:learn_english/injector/injector_container.dart';
 import 'package:learn_english/model/course_model.dart';
-import 'package:learn_english/provider/loading_provider.dart';
-
 import '../common/constants/string_const.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -19,8 +17,7 @@ class HomeProvider extends ChangeNotifier {
   Future<void> getDataHome() async {
     List<dynamic> groupId = [];
     if (injector<LocalApp>().getStringStorage(StringConst.groupIds) != null) {
-      groupId = jsonDecode(
-          injector<LocalApp>().getStringStorage(StringConst.groupIds) ?? '');
+      groupId = jsonDecode(injector<LocalApp>().getStringStorage(StringConst.groupIds) ?? '');
     }
     String userId = injector<LocalApp>().getStorage(StringConst.id);
     var data = await appClient.post("course/all", body: {
@@ -28,6 +25,7 @@ class HomeProvider extends ChangeNotifier {
       'groupId': groupId,
     });
     courseModel = CourseModel.fromJson(data);
+
     notifyListeners();
   }
 
@@ -36,12 +34,7 @@ class HomeProvider extends ChangeNotifier {
       "course/search",
       body: {
         "filters": [
-          {
-            "key": "title",
-            "operator": "LIKE",
-            "field_type": "STRING",
-            "value": contentSearch
-          }
+          {"key": "title", "operator": "LIKE", "field_type": "STRING", "value": contentSearch}
         ],
         "sorts": [],
         "page": 0,

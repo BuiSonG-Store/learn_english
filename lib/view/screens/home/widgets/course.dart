@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:convert' show utf8;
 
 import 'package:flutter/material.dart';
 import 'package:learn_english/view/play_game/config/sound_controller.dart';
@@ -33,7 +34,6 @@ class Course extends StatelessWidget {
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-        width: MediaQuery.of(context).size.width * 0.3,
         child: Column(
           children: [
             Stack(
@@ -67,9 +67,11 @@ class Course extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              (model!.title ?? ""),
+              utf8.decode((model!.title ?? "").runes.toList()),
               style: Theme.of(context).textTheme.bodyText1,
               textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             )
           ],
         ),
