@@ -5,6 +5,7 @@ import 'package:learn_english/view/screens/chat/chat_screen/chat_screen.dart';
 import '../../../../common/constants/string_const.dart';
 import '../../../../common/local/local_app.dart';
 import '../../../../injector/injector_container.dart';
+import '../../momo/momo_screen.dart';
 import '../widget/room_chat_item.dart';
 
 class MyChatScreen extends StatelessWidget {
@@ -43,9 +44,7 @@ class MyChatScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ChatScreen(
-                    idRoom: 'messages2',
-                  ),
+                  builder: (context) => const ChatScreen(idRoom: 'messages2'),
                 ),
               );
             },
@@ -59,11 +58,7 @@ class MyChatScreen extends StatelessWidget {
             onNavigator: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const ChatScreen(
-                    idRoom: 'messageMID',
-                  ),
-                ),
+                MaterialPageRoute(builder: (context) => const ChatScreen(idRoom: 'messageMID')),
               );
             },
           ),
