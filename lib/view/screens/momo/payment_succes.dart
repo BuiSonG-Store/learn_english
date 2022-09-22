@@ -31,8 +31,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
 
   Future<void> update() async {
     try {
-      if (groupId == []) {
-        await appClient.get('groups/2/add_user/$id', token: true);
+      if (groupId.isEmpty || groupId.length < 2) {
+        await appClient.get('groups/1/add_user/$id', token: true);
       } else if (groupId.length == 1) {
         await appClient.get('groups/2/add_user/$id', token: true);
       } else if (groupId.length == 2) {

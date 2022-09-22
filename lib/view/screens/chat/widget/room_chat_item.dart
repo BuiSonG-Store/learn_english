@@ -91,7 +91,7 @@ class _RoomChatWidgetState extends State<RoomChatWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      'Tham gia phòng chat này đồng nghĩa với việc bạn nâng cấp level học và các đặc quyền riêng của level tương đương!',
+                      'Tham gia phòng chat này đồng nghĩa với việc bạn nâng cấp level học và các đặc quyền riêng của level tương đương!\n(Lưu ý: bạn phải nâng cấp lần lượt nâng cấp từ level thấp đến cao)',
                     ),
                     Image.asset(
                       'assets/icons/bubble-chat.gif',
