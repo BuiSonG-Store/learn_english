@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:learn_english/model/rank_model.dart';
 
@@ -28,7 +30,7 @@ class ItemRank extends StatelessWidget {
           imageTop(model?.rank ?? 0, context),
           const SizedBox(width: 12),
           Text(
-            model?.name ?? '',
+            utf8.decode((model?.name ?? '').runes.toList()),
             style: Theme.of(context).textTheme.bodyLarge,
           ),
           const Spacer(),

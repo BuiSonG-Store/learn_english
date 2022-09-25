@@ -197,7 +197,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          height: MediaQuery.of(context).size.height * 0.5,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -219,20 +218,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: MediaQuery.of(context).size.height * 0.2,
                     ),
                     const Spacer(),
-                    CustomButtonText(
-                      onTab: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => const MoMoScreen(),
-                          ),
-                        );
-                      },
-                      text: 'Tham gia',
-                    )
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: CustomButtonText(
+                  onTab: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const MoMoScreen(),
+                      ),
+                    );
+                  },
+                  text: 'Tham gia',
+                ),
+              )
             ],
           ),
         );

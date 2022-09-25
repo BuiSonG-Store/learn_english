@@ -1,3 +1,4 @@
+import 'package:app_trans/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:learn_english/router/routing-name.dart';
@@ -32,6 +33,7 @@ abstract class RoutesConstant {
     RoutingNameConstant.editProfile: (BuildContext context) => const EditProfile(),
     RoutingNameConstant.DoneQuestion: (BuildContext context) => const DoneQuestion(),
     RoutingNameConstant.chooseGame: (BuildContext context) => const ChooseGame(),
+    RoutingNameConstant.trans: (BuildContext context) => const MyAppTrans(),
     RoutingNameConstant.startChooseGame: (BuildContext context) => const StartChooseGame(),
     RoutingNameConstant.homePageSlideParty: (BuildContext context) => const HomePageSlideParty(),
     RoutingNameConstant.done: (BuildContext context) => const DoneQuestion(),

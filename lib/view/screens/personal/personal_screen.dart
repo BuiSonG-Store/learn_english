@@ -104,6 +104,13 @@ class PersonalScreen extends StatelessWidget {
                       },
                     ),
                     ItemPersonal(
+                      icon: IconConst.translation,
+                      title: 'Dịch văn bản',
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutingNameConstant.trans);
+                      },
+                    ),
+                    ItemPersonal(
                       icon: IconConst.play,
                       title: 'Giải trí',
                       onTap: () {

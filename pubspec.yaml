@@ -56,8 +56,12 @@ dependencies:
   cloud_firestore: ^3.1.17
   #
   flutter_portal: ^0.4.0
+  flutter_tts: ^3.5.3
+
   momo_vn_example:
     path: ../momo_vn_example
+  app_trans:
+    path: ../app_trans
   slideparty_playboard_utils:
     git:
       url: https://github.com/definev/slideparty_playboard_utils.git

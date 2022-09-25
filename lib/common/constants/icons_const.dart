@@ -14,4 +14,5 @@ class IconConst {
   static const String play = '${_path}play.png';
   static const String volume = '${_path}volume.png';
   static const String unVolume = '${_path}volume-mute.png';
+  static const String translation = '${_path}translation.png';
 }
