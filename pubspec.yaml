@@ -66,9 +66,9 @@ dependencies:
     git:
       url: https://github.com/definev/slideparty_socket.git
       ref: main
-
 flutter_app_name:
   name: "Easy English"
+
 flutter_icons:
   android: "launcher_icon"
   ios: true

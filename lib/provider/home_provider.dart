@@ -30,19 +30,21 @@ class HomeProvider extends ChangeNotifier {
   }
 
   Future<void> search(String contentSearch) async {
-    var data = await appClient.post(
-      "course/search",
-      body: {
-        "filters": [
-          {"key": "title", "operator": "LIKE", "field_type": "STRING", "value": contentSearch}
-        ],
-        "sorts": [],
-        "page": 0,
-        "limit": 20
-      },
-      formData: true,
-    );
-    courseModel = CourseModel.fromJson(data);
-    notifyListeners();
+    try {
+      var data = await appClient.post(
+        "course/search",
+        body: {
+          "filters": [
+            {"key": "title", "operator": "LIKE", "field_type": "STRING", "value": contentSearch}
+          ],
+          "sorts": [],
+          "page": 0,
+          "limit": 20
+        },
+        formData: true,
+      );
+      courseModel = CourseModel.fromJson(data);
+      notifyListeners();
+    } catch (_) {}
   }
 }

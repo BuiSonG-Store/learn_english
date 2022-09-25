@@ -40,8 +40,8 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Create your", style: Theme.of(context).textTheme.headline6),
-                          Text("Account", style: Theme.of(context).textTheme.headline6)
+                          Text("Tạo tài khoản", style: Theme.of(context).textTheme.headline6),
+                          Text("với Gmail & mật khẩu", style: Theme.of(context).textTheme.headline6)
                         ],
                       ),
                     ),
@@ -114,7 +114,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           color: Colors.grey,
                           height: 1,
                         )),
-                        const Text("   or continue with   "),
+                        const Text("   hoặc tiếp tục với   "),
                         Expanded(
                             child: Container(
                           height: 1,
@@ -128,7 +128,8 @@ class _CreateAccountState extends State<CreateAccount> {
                     width: MediaQuery.of(context).size.width,
                     alignment: Alignment.center,
                     child: Container(
-                      width: 40,
+                      width: 50,
+                      height: 50,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           border: Border.all(
