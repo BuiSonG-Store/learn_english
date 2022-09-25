@@ -43,7 +43,8 @@ class LogInProvider extends ChangeNotifier {
         injector<LocalApp>().saveStringStorage(StringConst.passwordLogin, passwordController.text);
         injector<LocalApp>().saveStringStorage(StringConst.keySaveToken, model.accessToken ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.keySaveReFreshToken, model.refreshToken ?? "");
-        injector<LocalApp>().saveStringStorage(StringConst.userName, model.username ?? "");
+        injector<LocalApp>()
+            .saveStringStorage(StringConst.userName, utf8.decode((model.username ?? "").runes.toList()));
         injector<LocalApp>().saveStringStorage(StringConst.level, model.level ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.email, model.email ?? "");
         injector<LocalApp>().saveStringStorage(StringConst.id, model.id.toString());
@@ -51,13 +52,15 @@ class LogInProvider extends ChangeNotifier {
           StringConst.groupIds,
           jsonEncode(model.groupId ?? []),
         );
-        CommonUtil.showSnackBar(_, title: "Log in success!");
+        CommonUtil.showSnackBar(_, title: "Log in success!", color: Colors.greenAccent);
         await _authServiceFB.signInAnon();
-        Navigator.pushReplacementNamed(_, RoutingNameConstant.homeContainer);
+        Future.delayed(const Duration(seconds: 2), () {
+          Navigator.pushReplacementNamed(_, RoutingNameConstant.homeContainer);
+        });
       } else {
         LoadingProcessBuilder.hideProgressDialog(_);
 
-        return CommonUtil.showSnackBar(_, title: "Log in not success!");
+        return CommonUtil.showSnackBar(_, title: "Log in not success!", color: Colors.yellowAccent);
       }
     } catch (_) {}
   }

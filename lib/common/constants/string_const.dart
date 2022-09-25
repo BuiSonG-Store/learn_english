@@ -15,21 +15,21 @@ class StringConst {
   static const groupIds = 'groupIds';
   static const avt = 'avt';
 
-  static const introTitle1 = 'We provide the best learning courses & great mentors!';
-  static const introTitle2 = 'Learn anytime and anywhere easily and conveniently';
-  static const introTitle3 = 'Let\'s improve your skills together with Elera right now!';
+  static const introTitle1 = 'Chúng tôi cung cấp các khóa học tốt nhất và những người cố vấn tuyệt vời!';
+  static const introTitle2 = 'Học mọi lúc mọi nơi một cách dễ dàng và thuận tiện';
+  static const introTitle3 = 'Hãy cùng chúng tôi cải thiện kỹ năng của bạn ngay bây giờ!';
 
   static const getStated = 'Get Started';
 
   static const letYouIn = "Let's you login!";
   static const loginWithGoogle = "Continue with Google";
-  static const loginWithPassword = "Sign in with email, password";
-  static const notAccount = "Don't have an account?  ";
-  static const signUp = "Sign up";
+  static const loginWithPassword = "Đăng nhập với email, mật khẩu";
+  static const notAccount = "Bạn chưa có tài khoản?  ";
+  static const signUp = "Đăng ký";
   static const accept = "Accept";
 
   static const personal = "Personal";
-  static const signIn = "Sign in";
+  static const signIn = "Đăng nhập";
 
   static const String someThingWentWrong = 'Đã xảy ra lỗi, chúng tôi đang cố gắng khắc phục sớm nhất có thể';
 }

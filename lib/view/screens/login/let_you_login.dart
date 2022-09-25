@@ -33,7 +33,7 @@ class _LetYouLogInScreenState extends State<LetYouLogInScreen> {
                 width: MediaQuery.of(context).size.width,
                 alignment: Alignment.center,
                 child: Text(
-                  StringConst.letYouIn,
+                  'Lựa chọn phương thức đăng nhập',
                   style: Theme.of(context).textTheme.button,
                 ),
               ),
@@ -58,7 +58,7 @@ class _LetYouLogInScreenState extends State<LetYouLogInScreen> {
                   height: 25,
                 ),
                 const SizedBox(width: 5),
-                Text(StringConst.loginWithGoogle, style: Theme.of(context).textTheme.titleLarge)
+                Text('Đăng nhập với tài khoản google', style: Theme.of(context).textTheme.titleLarge)
               ],
             ),
           ),

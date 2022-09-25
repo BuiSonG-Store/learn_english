@@ -13,6 +13,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import '../../../common/constants/string_const.dart';
 import '../../../common/local/local_app.dart';
 import '../../../injector/injector_container.dart';
+import '../../widgets/custom_button_text.dart';
+import '../momo/momo_screen.dart';
 import '../webview/webview_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -40,6 +42,66 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<dynamic> groupId = jsonDecode(injector<LocalApp>().getStringStorage(StringConst.groupIds) ?? '');
 
+  void onTapLevel() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Ok'),
+          ),
+          TextButton(
+            onPressed: () {
+              _joinNow();
+            },
+            child: const Text('Nâng cấp ngay'),
+          )
+        ],
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/icons/level-up.png',
+              width: 50,
+            ),
+            const SizedBox(width: 8),
+            const Expanded(child: Text('Level bạn đang có: ')),
+          ],
+        ),
+        content: SizedBox(
+          height: 80,
+          width: 80,
+          child: Column(
+            children: [
+              groupId.length < 1
+                  ? Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Image.asset('assets/icons/first_rank.png', width: 50),
+                    )
+                  : Expanded(
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 0.8,
+                        ),
+                        itemCount: groupId.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 12),
+                            child: imageLevel(groupId[index]),
+                          );
+                        },
+                      ),
+                    ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isFirst) {
@@ -55,77 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SafeArea(
                 child: AppbarHome(
                   onTapLevel: () {
-                    showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Đã hiểu'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const WebViewPage(
-                                    url: 'https://www.facebook.com/',
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Text('Nâng cấp'),
-                          )
-                        ],
-                        title: Row(
-                          children: [
-                            Image.asset(
-                              'assets/icons/level-up.png',
-                              width: 30,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                'Level bài tập bạn có:',
-                                style: Theme.of(context).textTheme.headline6?.copyWith(fontSize: 18),
-                              ),
-                            ),
-                          ],
-                        ),
-                        content: SizedBox(
-                          height: 200,
-                          child: Column(
-                            children: [
-                              groupId.length < 1
-                                  ? Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Image.asset('assets/icons/logo.png', width: 50),
-                                    )
-                                  : Expanded(
-                                      child: GridView.builder(
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 4,
-                                          childAspectRatio: 0.8,
-                                        ),
-                                        itemCount: groupId.length,
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(right: 12),
-                                            child: imageLevel(groupId[index]),
-                                          );
-                                        },
-                                      ),
-                                    ),
-                              const Text(
-                                'Nâng cấp level sẽ cung cấp cho bạn thêm bài tập, gỡ bỏ quảng cáo và có thêm phòng chat hỗ trợ riêng cho level đó!',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                    onTapLevel();
                   },
                 ),
               ),
@@ -143,8 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     textInputAction: TextInputAction.search,
                     onValidate: ValidateUtil.validEmpty,
                     suffixIcon: IconButton(
-                      onPressed: () =>
-                          provider.search(provider.controller.text),
+                      onPressed: () => provider.search(provider.controller.text),
                       icon: const Icon(Icons.search),
                     ),
                   ),
@@ -186,6 +177,66 @@ class _HomeScreenState extends State<HomeScreen> {
         '$level',
         style: Theme.of(context).textTheme.bodyLarge,
       ),
+    );
+  }
+
+  void _joinNow() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 10,
+                offset: Offset(-1, -1), // Shadow position
+              ),
+            ],
+          ),
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(Icons.close),
+              ),
+              Container(
+                padding: const EdgeInsets.all(12.0),
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Nâng cấp này đồng nghĩa với việc bạn nâng cấp level học và các đặc quyền riêng của level tương đương!\n(Lưu ý: bạn phải nâng cấp lần lượt nâng cấp từ level thấp đến cao)',
+                    ),
+                    Image.asset(
+                      'assets/icons/resource.png',
+                      height: MediaQuery.of(context).size.height * 0.2,
+                    ),
+                    const Spacer(),
+                    CustomButtonText(
+                      onTab: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => const MoMoScreen(),
+                          ),
+                        );
+                      },
+                      text: 'Tham gia',
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

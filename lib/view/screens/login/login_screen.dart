@@ -43,8 +43,8 @@ class _LogInScreenState extends State<LogInScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Login with", style: Theme.of(context).textTheme.headline6),
-                          Text("Email & password", style: Theme.of(context).textTheme.headline6)
+                          Text("Đăng nhập với", style: Theme.of(context).textTheme.headline6),
+                          Text("Gmail & mật khẩu", style: Theme.of(context).textTheme.headline6)
                         ],
                       ),
                     ),
@@ -69,7 +69,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                       CustomTextField(
                         controller: provider.passwordController,
-                        hintText: "Password",
+                        hintText: "Mật khẩu",
                         onValidate: ValidateUtil.validEmpty,
                         prefixIcon: const Icon(Icons.lock),
                         obscureText: obscureText,
@@ -107,7 +107,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             height: 1,
                           ),
                         ),
-                        const Text("   or continue with   "),
+                        const Text("   hoặc tiếp tục với   "),
                         Expanded(
                           child: Container(
                             height: 1,
@@ -122,7 +122,8 @@ class _LogInScreenState extends State<LogInScreen> {
                     width: MediaQuery.of(context).size.width,
                     alignment: Alignment.center,
                     child: Container(
-                      width: 40,
+                      width: 50,
+                      height: 50,
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                           border: Border.all(

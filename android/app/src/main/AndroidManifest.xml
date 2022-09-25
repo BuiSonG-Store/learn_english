@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.learn_english" xmlns:tools="http://schemas.android.com/tools">
    <application
-        android:label="Learning TOEIC"
+        android:label="Easy English"
         android:name="${applicationName}"
         tools:replace="android:label"
         android:icon="@mipmap/launcher_icon">

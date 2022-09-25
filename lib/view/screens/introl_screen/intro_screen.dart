@@ -111,7 +111,7 @@ class _IntroScreenState extends State<IntroScreen> {
           maxWidth: 400,
         ),
         child: ContainerButton(
-            text: StringConst.getStated,
+            text: 'Khám phá ngay',
             press: () async {
               await SharedPreferencesService.setFirstTime();
               Navigator.pushReplacementNamed(context, RoutingNameConstant.letYouLogInScreen);

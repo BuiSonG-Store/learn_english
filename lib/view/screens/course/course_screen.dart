@@ -88,7 +88,6 @@ class Item extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         width: MediaQuery.of(context).size.width,
-        height: model?.description != '' ? 100 : 70,
         decoration: BoxDecoration(
           color: Theme.of(context).shadowColor,
           borderRadius: BorderRadius.circular(8),
@@ -119,15 +118,6 @@ class Item extends StatelessWidget {
                 utf8.decode((model?.name ?? '').runes.toList()),
                 style: Theme.of(context).textTheme.bodyLarge,
                 maxLines: 2,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Expanded(
-              child: Text(
-                utf8.decode((model?.description ?? '').runes.toList()),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyMedium,
               ),
             ),
           ],
